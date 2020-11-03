@@ -1,6 +1,8 @@
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const webpack = require('webpack');
+const WebpackRTLPlugin = require('webpack-rtl-plugin')
+
 
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
@@ -51,7 +53,7 @@ module.exports = (env) => {
         },
         plugins: [
             new MiniCssExtractPlugin({
-                filename: 'styles.css'
+                filename: 'styles.css',
             }),
             new webpack.DefinePlugin({
                 'process.env.FIREBASE_API_KEY': JSON.stringify(process.env.FIREBASE_API_KEY),
@@ -61,7 +63,12 @@ module.exports = (env) => {
                 'process.env.FIREBASE_STORAGE_BUCKET': JSON.stringify(process.env.FIREBASE_STORAGE_BUCKET),
                 'process.env.FIREBASE_MESSAGING_SENDER_ID': JSON.stringify(process.env.FIREBASE_MESSAGING_SENDER_ID),
                 'process.env.FIREBASE_APP_ID': JSON.stringify(process.env.FIREBASE_APP_ID)
-            })
+            }),
+            new WebpackRTLPlugin({
+                diffOnly: true,
+                minify: true
+            }),
+
         ],
         devtool: isProd ? "source-map" : "inline-source-map",
         devServer: {
