@@ -2,11 +2,40 @@
     display: flex;
     flex-direction: column;
     > * {
-        margin-bottom: $m-size;
+        margin-bottom: $l-size;
     }
 }
 
 .form__error{
     margin: 0 0 $m-size 0;
     font-style: italic;
+    color:red;
+    font-weight: 800;
 }
+
+.rdl-control {
+    height: 200px;
+    width: 30%;
+  }
+
+  .treats-title {
+      display: flex;
+      justify-content: space-around;
+      flex-direction: row;
+      align-items: center;
+  }
+
+  .form-item-activity{
+      display: flex;
+      flex-direction: row;
+      margin-right: auto;
+  }
+
+
+  .no-options-message-text{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-style: italic;
+      color: $grey;
+  }

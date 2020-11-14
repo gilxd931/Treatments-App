@@ -17,4 +17,17 @@
 .button--secondery{
     @extend .button;
     background: #888888;
+    margin-bottom: $m-size;
+}
+
+.button--red {
+    @extend .button;
+    background: #f01f1f;
+    margin-bottom: $m-size;
+}
+
+.remove-cancel-buttons{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }

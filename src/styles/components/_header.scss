@@ -2,12 +2,17 @@
     background: $dark-blue;
 }
 
-.header__title{
+.header__date{
     color:white;
     text-decoration: none;
     h1 {
         margin:0;
     }
+}
+
+.header__title{
+    @extend .header__date;
+    margin-right: $m-size;
 }
 
 .header__content {

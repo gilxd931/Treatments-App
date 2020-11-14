@@ -3,7 +3,6 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const webpack = require('webpack');
 const WebpackRTLPlugin = require('webpack-rtl-plugin')
 
-
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
 if (process.env.NODE_ENV == 'test') {
@@ -45,7 +44,7 @@ module.exports = (env) => {
                     options: {
                         sourceMap: true
                     }
-                }
+                },
                 ],
             }
 
@@ -68,7 +67,6 @@ module.exports = (env) => {
                 diffOnly: true,
                 minify: true
             }),
-
         ],
         devtool: isProd ? "source-map" : "inline-source-map",
         devServer: {

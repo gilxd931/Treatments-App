@@ -3,28 +3,28 @@
     border: 1px solid darken($off-white, 7%);
     color: $grey;
     display: flex;
-    justify-content: space-between;
-    padding: $s-size $m-size;
+    padding: $s-size $s-size;
   }
+
+.item {
+    text-decoration: none;
+    color:$dark-gray;
+}
 
 .list-item {
     border: 1px solid darken($off-white, 7%);
     border-top: none;
     color: $dark-gray;
     padding: $s-size;
-    text-decoration: none;
     display: flex;
-    flex-direction: column;
     transition: background .3s ease;
     &:hover {
         background: $off-white;
-    }
+    };
 
     @media (min-width: $desktop-bp){
         align-items: center;
         flex-direction: row;
-        justify-content: space-between;
-        padding: $m-size;
     }
 }
 
@@ -40,6 +40,8 @@
 
 .list-item__title{
     margin: 0;
+    font-size: 18px;
+
     word-break: break-all;
 }
 
@@ -50,10 +52,16 @@
 
 .list-item__data{
     margin: 0 0 0;
+font-size: 18px;
     @media (min-width: $desktop-bp){
         margin: 0;
-        padding-left: $s-size;
     }
+}
+
+.list-item__icons{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
 }
 
 .list-body {
@@ -62,3 +70,52 @@
         margin-bottom: $l-size;
     }
 }
+
+.list-header__item {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    > p {
+        margin-left: $xs-size;
+    }
+    > i {
+        cursor: pointer;
+        margin-top: 5px;
+    }
+}
+
+.client-item-icon{
+    color: $blue;
+    font-size: $ml-size;
+     &:hover {
+        color: darken($blue, 20%);
+        animation: wobble 1s 1;
+        cursor: pointer;
+      }
+}
+
+.client-item-icon-orange{
+    @extend .client-item-icon;
+    color:#b38600;
+    &:hover {
+        color: darken(#b38600, 20%);
+
+}
+}
+
+
+
+@keyframes wobble {
+    25% {
+      transform: rotate(15deg);
+    }
+    50% {
+      transform: rotate(-30deg);
+    }
+    75% {
+      transform: rotate(5deg);
+    }
+    100% {
+      transform: rotate(0deg);
+    }
+  }

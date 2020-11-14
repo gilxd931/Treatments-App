@@ -1,5 +1,6 @@
 * {
     box-sizing: border-box;
+    direction: rtl;
 }
 
 html {
@@ -28,4 +29,14 @@ button:disabled {
 
 .is-active {
     font-weight: bold;
+}
+
+.center{
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}
+
+.ltr{
+    direction: ltr;
 }

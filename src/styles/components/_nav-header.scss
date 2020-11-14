@@ -1,0 +1,27 @@
+.nav-header {
+    display: flex;
+    color: red;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.nav-header__item {
+    margin: 0 $xl-size 0 $xl-size;
+    color:$dark-blue;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    &:hover {
+        color: darken($dark-blue, 30%);
+
+    }
+    
+}
+
+.nav-header__itemtext {
+    color:$dark-blue;
+    text-decoration: none;
+}
+

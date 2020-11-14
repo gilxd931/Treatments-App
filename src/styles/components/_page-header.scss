@@ -1,6 +1,6 @@
 .page-header {
     background: $off-white;
-    margin-bottom: $l-size;
+    margin-bottom: $xl-size;
     padding: $l-size 0;
 }
 
@@ -10,8 +10,8 @@
 
 .page-header__title{
     margin: 0;
-    font-weight: 300;
+    font-weight: 600;
     span {
-        font-weight: 700;
+        font-weight: 900;
     }
 }

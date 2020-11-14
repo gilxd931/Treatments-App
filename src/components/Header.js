@@ -2,16 +2,17 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { startLogout } from '../actions/auth';
+import moment from 'moment';
 
 export const Header = ({ startLogout }) => (
   <header className='header'>
-    <div className="content-container">
-      <div className="header__content">
-        <Link className="header__title" to="/dashboard">
-          <h1>מגע טל</h1>
-        </Link>
-        <button className="button button--link" onClick={startLogout}>התנתקות</button>
-      </div>
+    <div className="header__content">
+      <Link className="header__title" to="/home">
+        <h1 >מגע טל</h1>
+      </Link>
+      <h1 className="header__date"> {moment().locale('he').format('DD לMMMM YYYY')}</h1>
+
+      <button className="button button--link" onClick={startLogout}>התנתקות</button>
     </div>
   </header>
 );
