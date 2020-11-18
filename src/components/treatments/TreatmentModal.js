@@ -25,7 +25,7 @@ const TreatmentModal = (props) => {
 
             <p className="modal__body">סוג הטיפול: {selected && selected.join(', ')}.</p>
 
-            <p className="modal__body">{reason}.</p>
+            <p className="modal__body">{reason}</p>
             <button className="button" onClick={() => { props.setSelectedTreatment('') }}>אוקיי</button>
         </Modal>
     )
