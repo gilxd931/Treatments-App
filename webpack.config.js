@@ -3,12 +3,14 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const webpack = require('webpack');
 const WebpackRTLPlugin = require('webpack-rtl-plugin')
 
-process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+process.env.NODE_ENV = process.env.NODE_ENV || 'stage';
 
 if (process.env.NODE_ENV == 'test') {
     require('dotenv').config({ path: '.env.test' });
 } else if (process.env.NODE_ENV == 'development') {
     require('dotenv').config({ path: '.env.development' });
+} else if (process.env.NODE_ENV == 'stage') {
+    require('dotenv').config({ path: '.env.stage' });
 }
 
 module.exports = (env) => {
