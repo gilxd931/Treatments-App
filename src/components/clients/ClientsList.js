@@ -34,7 +34,7 @@ class ClientsList extends React.Component {
 
             this.props.dispatch(sortClientByNameDown());
         }
-        else { // down
+        else { // currently down
             this.setState(() => ({ nameUp: true }))
             this.clientFilterArrow = <FaSortUp />
             this.props.dispatch(sortClientByNameUp());
@@ -62,9 +62,6 @@ class ClientsList extends React.Component {
             this.lastTreatFilterArrow = <FaSortUp />
             this.props.dispatch(sortClientByLastTreatUp());
         }
-
-
-
     }
 
     onNextTreatClickHandler = () => {
@@ -86,7 +83,7 @@ class ClientsList extends React.Component {
 
                 >
                     <div className="show-for-desktop list-header__item">
-                        <p>לקוח</p>
+                        <p>מטופל</p>
 
                         <i onClick={this.onNameClickHandler}>{this.clientFilterArrow}
                         </i>

@@ -22,7 +22,7 @@ class ClientsListFilters extends React.Component {
                 <div className="input-group">
                     <div className="input-group__item">
                         <input className="text-input" type="text"
-                            placeholder="חיפוש לקוח"
+                            placeholder="שם מטופל"
                             value={this.props.clientsFilters.text}
                             onChange={(e) => {
                                 this.props.dispatch(setClientTextFilter(e.target.value))

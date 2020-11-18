@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { DateRangePicker } from 'react-dates';
-import { setTreatTextFilter, sortTreatByLastTreat, sortTreatByName, setTreatStartDate, setTreatEndDate } from '../../actions/treatsFilters';
+import { setTreatTextFilter, setTreatStartDate, setTreatEndDate, displayByHistoryTreatments, displayByFutureTreatments } from '../../actions/treatsFilters';
 import { FaLongArrowAltLeft } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 
@@ -24,7 +24,7 @@ class TreatmentsListFilters extends React.Component {
                 <div className="input-group">
                     <div className="input-group__item">
                         <input className="text-input" type="text"
-                            placeholder="חיפוש טיפול"
+                            placeholder="שם מטופל"
                             value={this.props.treatsFilters.text}
                             onChange={(e) => {
                                 this.props.dispatch(setTreatTextFilter(e.target.value))
@@ -33,18 +33,18 @@ class TreatmentsListFilters extends React.Component {
 
                     <div className="input-group__item">
                         <select className="select"
-                            value={this.props.treatsFilters.sortBy}
+                            value={this.props.treatsFilters.display}
                             onChange={(e) => {
-                                if (e.target.value === 'lastTreat') {
-                                    this.props.dispatch(sortTreatByLastTreat());
+                                if (e.target.value === 'historyTreatments') {
+                                    this.props.dispatch(displayByHistoryTreatments());
                                 }
-                                else if (e.target.value === 'name') {
-                                    this.props.dispatch(sortTreatByName());
+                                else if (e.target.value === 'futureTreatments') {
+                                    this.props.dispatch(displayByFutureTreatments());
                                 }
                             }}
                         >
-                            <option value="lastTreat">טיפול אחרון</option>
-                            <option value="name">שם</option>
+                            <option value="historyTreatments">טיפולים שהיו</option>
+                            <option value="futureTreatments">טיפוליים עתידיים</option>
                         </select>
                     </div>
                     <div className="input-group__item">

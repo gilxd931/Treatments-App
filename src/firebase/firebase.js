@@ -1,5 +1,6 @@
 import * as firebase from 'firebase';
 
+
 const firebaseConfig = {
     apiKey: process.env.FIREBASE_API_KEY,
     authDomain: process.env.FIREBASE_AUTH_DOMAIN,
@@ -13,16 +14,9 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
+
+//db
 const db = firebase.database();
 const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
 
 export { firebase, googleAuthProvider, db as default }
-
-
-// apiKey: "AIzaSyAuhYTzRcQ8YGL907AIrMd39n__QLAyJdA",
-// authDomain: "magatal.firebaseapp.com",
-// databaseURL: "https://magatal.firebaseio.com",
-// projectId: "magatal",
-// storageBucket: "magatal.appspot.com",
-// messagingSenderId: "61180989728",
-// appId: "1:61180989728:web:0e381f318b684d312e4745",

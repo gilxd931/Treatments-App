@@ -36,7 +36,7 @@ const EditClientPage = (props) => {
                 <button className="button--red" onClick={() => {
                     props.setSelectedClient(props.client.id);
 
-                }}>הסרת לקוח</button>
+                }}>הסרת מטופל</button>
             </div>
             { modal}
 

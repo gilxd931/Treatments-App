@@ -15,9 +15,22 @@
     margin-right: $m-size;
 }
 
+.header__title-notification{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-right: $s-size;
+}
+
 .header__content {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: $s-size 0;
+}
+
+.header__iconbell{
+    color:$off-white;
+    font-size: 2.2rem;
+
 }

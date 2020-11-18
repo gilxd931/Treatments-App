@@ -19,7 +19,7 @@ const ClientRemoveEnsureModal = (props) => {
             closeTimeoutMS={200}
             className="modal"
         >
-            <h3 className="modal__title">האם להסיר לקוח זה?</h3>
+            <h3 className="modal__title">האם להסיר מטופל זה?</h3>
 
             <div className="remove-cancel-buttons">
                 <button className="button--red" onClick={() => { onPressDelete() }}>למחוק</button>

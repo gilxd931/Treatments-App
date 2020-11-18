@@ -5,8 +5,16 @@ import TreatmentForm from './TreatmentForm'
 
 export class AddTreatmentPage extends React.Component {
     onSubmit = (treatment) => {
-        this.props.startAddTreatment(treatment);
+        if (treatment.date > new Date().getTime()) { // add future treat
+            this.props.startAddTreatment(treatment);
+        }
+        else {
+            console.log('add past treat')  // NOT IMPLEMENTED YET
+        }
+
         this.props.history.push('/treatments');
+
+
     };
     render() {
         return (

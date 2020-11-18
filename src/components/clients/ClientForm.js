@@ -72,19 +72,13 @@ export default class ClientForm extends React.Component {
             // clear error
             this.setState(() => ({ error: '' }));
 
-            let treats = [];
-            treatsOptions.forEach(element => {
-                if (this.state.selected.includes(element.value)) {
-                    treats.push(element.label);
-                }
-            });
             this.props.onSubmit({
                 fullName: this.state.fullName,
                 address: this.state.address,
                 note: this.state.note,
                 isActive: this.state.isActive,
                 birthday: new Date(this.state.birthday).getTime(),
-                selected: treats,
+                selected: this.state.selected,
                 sex: this.state.sex
             });
         }

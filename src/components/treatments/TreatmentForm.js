@@ -10,7 +10,7 @@ import { InputMoment } from 'react-input-moment';
 import '../../styles/css/input-moment.css';
 
 
-const NoOptionsMessage = props => {
+const NoOptionsMessage = () => {
     return (
         <p className="no-options-message-text">אין תוצאות</p>
     );
@@ -61,6 +61,7 @@ class TreatmentForm extends React.Component {
                 date: new Date(this.state.date).getTime(),
                 selected: this.state.selected,
                 reason: this.state.reason,
+                clientId: this.props.clients.find((client) => client.fullName === this.state.clientName).id
             });
         }
     })

@@ -1,4 +1,7 @@
 import db from '../firebase/firebase';
+import { getClientFutureTreatments } from '../firebase/operations';
+import ClientNearestTreat from '../selectors/ClientNearestTreat';
+
 
 export const addClient = (client = {}) => ({
     type: 'ADD_CLIENT',
@@ -12,22 +15,23 @@ export const startAddClient = (clientData = {}) => {
             fullName = '',
             address = '',
             note = '',
-            selected = {},
-            lastTreat = 1604580865785, // dummy
-            nextTreat = 1604580865785,  //dummy
+            selected = [],
+            lastTreat = null,
+            nextTreat = null,
             isActive = true,
             birthday = '',
             sex,
-            treatsCount = 0
         } = clientData;
 
         const sentSelected = { ...selected }
 
-        const client = { fullName, address, note, sentSelected, lastTreat, nextTreat, isActive, birthday, sex, treatsCount };
+
+        const client = { fullName, address, note, selected: sentSelected, lastTreat, nextTreat, isActive, birthday, sex };
+        const dispatchClient = { fullName, address, note, selected, lastTreat, nextTreat, isActive, birthday, sex }
         return db.ref(`${uid}/clients`).push(client).then((ref) => {
             dispatch(addClient({
                 id: ref.key,
-                ...client
+                ...dispatchClient
             }))
         });
     }
@@ -54,7 +58,7 @@ export const startSetClients = () => {
             });
 
             dispatch(setClients(clients));
-        });
+        })
     };
 };
 
@@ -87,3 +91,27 @@ export const startEditClient = (id, updates) => {
         });
     }
 }
+
+export const startSetClientsTreatments = () => {
+    return (dispatch, getState) => {
+        const uid = getState().auth.uid;
+
+        return db.ref(`${uid}/clients`).once('value').then((snapshot) => {
+            snapshot.forEach(childSnapshot => {
+                const fullName = childSnapshot.val().fullName;
+                getClientFutureTreatments(uid, fullName).then((clientsTreatments) => {
+                    if (clientsTreatments && clientsTreatments.length > 0) { // if client have treatments update it. else  dont update anything
+                        const nearestTreat = ClientNearestTreat(clientsTreatments, fullName);
+
+                        if (nearestTreat) {
+                            dispatch(startEditClient(childSnapshot.key, { nextTreat: nearestTreat }))
+                        }
+                    }
+                })
+
+            })
+            return undefined;
+        });
+    }
+};
+

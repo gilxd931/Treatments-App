@@ -1,8 +1,8 @@
 export const treatsOptions = [
-    { value: 1, label: 'שיאצו' },
-    { value: 2, label: 'הילינג' },
-    { value: 3, label: 'תקשור' },
-    { value: 4, label: 'ארומתרפיה' },
-    { value: 5, label: 'פרחי בך' },
-    { value: 6, label: 'קלפים טיפוליים' }
+    { value: 'שיאצו', label: 'שיאצו' },
+    { value: 'הילינג', label: 'הילינג' },
+    { value: 'תקשור', label: 'תקשור' },
+    { value: 'ארומתרפיה', label: 'ארומתרפיה' },
+    { value: 'פרחי בך', label: 'פרחי בך' },
+    { value: 'קלפים טיפוליים', label: 'קלפים טיפוליים' }
 ];

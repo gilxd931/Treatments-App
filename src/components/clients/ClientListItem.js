@@ -5,29 +5,14 @@ import { connect } from 'react-redux';
 import { setSelectedClient } from '../../actions/clientsFilters';
 import { Link } from 'react-router-dom';
 import { FaInfo, FaEdit } from 'react-icons/fa';
-import { getClientTreatments } from '../../firebase/operations';
 
 class ClientListItem extends React.Component {
 
     render() {
-        console.log(getClientTreatments("גיל רותם"), "ziEKalvvB7gu32vX61kpuiJfL4k1")
 
         const { fullName, address, selected, id, lastTreat, nextTreat, setSelectedClient } = this.props;
-        let treatsToRender = [];
-        if (selected && !Array.isArray(selected)) {
+        let treatsToRender = selected ? selected.slice(0, 2) : []
 
-            for (const [key, value] of Object.entries(selected)) {
-                if (treatsToRender.length === 2) {
-                    break;
-                }
-                treatsToRender.push(value);
-            }
-
-        }
-        else {
-            treatsToRender = selected ? selected.slice(0, 2) : []
-
-        }
 
         return (
 
@@ -45,13 +30,17 @@ class ClientListItem extends React.Component {
                 <div>
                     <h3 className="list-item__data">
 
-                        {moment(lastTreat).locale('he').format('DD לMMMM YYYY HH:mm')}
+                        {lastTreat && moment(lastTreat).locale('he').format('DD לMMMM YYYY HH:mm')}
+                        {!lastTreat && <p>לא נקבע טיפול</p>}
+
                     </h3>
                 </div>
 
                 <div >
                     <h3 className="list-item__data">
-                        {moment(nextTreat).locale('he').format('DD לMMMM YYYY HH:mm')}
+                        {nextTreat && moment(nextTreat).locale('he').format('DD לMMMM YYYY HH:mm')}
+                        {!nextTreat && <p>לא נקבע טיפול</p>}
+
                     </h3>
                 </div>
 
@@ -84,15 +73,10 @@ class ClientListItem extends React.Component {
 }
 
 
-const mapStateToProps = (state) => {
-    return {
-        clientsFilters: state.clientsFilters
-    }
-}
 
 
 const mapDispatchToProps = (dispatch) => ({
     setSelectedClient: (text) => dispatch(setSelectedClient(text))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(ClientListItem);
+export default connect(undefined, mapDispatchToProps)(ClientListItem);
