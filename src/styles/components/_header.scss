@@ -3,7 +3,7 @@
 }
 
 .header__date{
-    color:white;
+    color:$off-white;
     text-decoration: none;
     h1 {
         margin:0;
@@ -12,14 +12,20 @@
 
 .header__title{
     @extend .header__date;
-    margin-right: $m-size;
+    margin-right: $l-size;
+    &:hover {
+        color: darken($off-white, 20%);
+      }
 }
 
 .header__title-notification{
     display: flex;
     flex-direction: row;
     align-items: center;
-    margin-right: $s-size;
+    margin-left: 0.4rem;
+    &:hover {
+        cursor: pointer;
+      }
 }
 
 .header__content {
@@ -32,5 +38,19 @@
 .header__iconbell{
     color:$off-white;
     font-size: 2.2rem;
+    &:hover {
+        color: darken($off-white, 20%);
+      }
+}
 
+.header__logout-icon{
+    color: $off-white;
+    font-size: $ml-size;
+    margin-left: $s-size;
+    margin-right: $s-size;
+    margin-top: 6px;
+     &:hover {
+        color: darken($off-white, 20%);
+        cursor: pointer;
+      }
 }

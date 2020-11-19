@@ -72,6 +72,7 @@ export const startRemoveClient = ({ id } = {}) => {
         const uid = getState().auth.uid;
 
         return db.ref(`${uid}/clients/${id}`).remove().then(() => {
+            // then remove all clients treatments
             dispatch(removeClient({ id }));
         });
     };
@@ -100,12 +101,17 @@ export const startSetClientsTreatments = () => {
             snapshot.forEach(childSnapshot => {
                 const fullName = childSnapshot.val().fullName;
                 getClientFutureTreatments(uid, fullName).then((clientsTreatments) => {
-                    if (clientsTreatments && clientsTreatments.length > 0) { // if client have treatments update it. else  dont update anything
+
+                    if (clientsTreatments && clientsTreatments.length > 0) { // if client have treatments update it
                         const nearestTreat = ClientNearestTreat(clientsTreatments, fullName);
 
                         if (nearestTreat) {
                             dispatch(startEditClient(childSnapshot.key, { nextTreat: nearestTreat }))
                         }
+                    }
+                    else {  // update to non exist 
+                        dispatch(startEditClient(childSnapshot.key, { nextTreat: '' }))
+
                     }
                 })
 

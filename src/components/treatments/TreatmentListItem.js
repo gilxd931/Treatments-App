@@ -45,7 +45,7 @@ class TreatmentListItem extends React.Component {
 
                 <div className="list-item__icons">
                     <i>
-                        <Link className="center client-item-icon-orange" to={`/home`}>
+                        <Link className="center client-item-icon-orange" to={`/editFutureTreatment/${id}`}>
                             <FaEdit />
                         </Link>
                     </i>

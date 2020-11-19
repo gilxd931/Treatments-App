@@ -4,11 +4,9 @@ export default (state = treatmentsReduerDefaultState, action) => {
     switch (action.type) {
         case 'ADD_TREATMENT':
             return [...state, action.treatment]
-        case 'REMOVE_TREATMENT':
-            return state.filter(({ id }) => (id !== action.id))
-        case 'EDIT_TREATMENT':
+        case 'EDIT_FUTURE_TREATMENT':
             return state.map((treatment) => {
-                if (treatment.id === treatment.id) {
+                if (treatment.id === action.id) {
                     return {
                         ...treatment,
                         ...action.updates
@@ -19,7 +17,7 @@ export default (state = treatmentsReduerDefaultState, action) => {
             })
         case 'SET_TREATMENTS':
             return action.treatments;
-        case 'REMOVE_TREATMENT':
+        case 'REMOVE_FUTURE_TREATMENT':
             return state.filter(({ id }) => (id !== action.id))
         default:
             return state;

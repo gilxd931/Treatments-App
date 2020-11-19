@@ -14,7 +14,6 @@ import { startSetFutureTreatments } from './actions/treatments';
 
 
 
-
 const store = configureStore();
 
 const jsx = (

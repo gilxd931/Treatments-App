@@ -21,7 +21,8 @@ export default class ClientForm extends React.Component {
             isActive: props.client ? props.client.isActive : true,
             error: '',
             buttonText: props.client ? 'עדכון מטופל' : 'הוסף מטופל',
-            selected: props.client && !jQuery.isEmptyObject(props.client.selected) ? treatsOptions.map((option) => props.client.selected.includes(option.label) ? option.value : false) : [],
+            selected: props.client && !jQuery.isEmptyObject(props.client.selected) ?
+                treatsOptions.filter((option) => props.client.selected.includes(option.label)).map((option) => option.label) : [],
         }
     }
 

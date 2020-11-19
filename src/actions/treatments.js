@@ -44,11 +44,15 @@ export const setFutureTreatments = (treatments) => ({
 export const startSetFutureTreatments = () => {
     return (dispatch, getState) => {
         const uid = getState().auth.uid;
-
         return db.ref(`${uid}/futureTreatments`).once('value').then((snapshot) => {
             const futureTreatments = [];
 
             snapshot.forEach((childSnapshot) => {
+                if (childSnapshot.val().date <= new Date().getTime()) {
+                    //remove treat from future and add it to history
+                    console.log("remove treat from future and add it to history")
+                }
+
                 futureTreatments.push({
                     id: childSnapshot.key,
                     ...childSnapshot.val()
@@ -75,3 +79,35 @@ export const checkForNearestDateUpdate = (clientName, cid) => {
         })
     }
 };
+
+
+export const removeFutureTreatment = ({ id } = {}) => ({
+    type: 'REMOVE_FUTURE_TREATMENT',
+    id
+});
+
+export const startRemoveFutureTreatment = ({ id } = {}) => {
+    return (dispatch, getState) => {
+        const uid = getState().auth.uid;
+
+        return db.ref(`${uid}/futureTreatments/${id}`).remove().then(() => {
+            dispatch(removeFutureTreatment({ id }));
+        });
+    };
+};
+
+export const editFutureTreatment = (id, updates) => ({
+    type: 'EDIT_FUTURE_TREATMENT',
+    id,
+    updates
+});
+
+export const startEditFutureTreatment = (id, updates) => {
+    return (dispatch, getState) => {
+        const uid = getState().auth.uid;
+        return db.ref(`/${uid}/futureTreatments/${id}`).update(updates).then(() => {
+            dispatch(editFutureTreatment(id, updates))
+            dispatch(checkForNearestDateUpdate(updates.clientName, updates.clientId));
+        });
+    }
+}

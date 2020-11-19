@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import ClientForm from './ClientForm';
 import { startEditClient, startRemoveClient } from '../../actions/clients';
-import ClientRemoveEnsureModal from './ClientRemoveEnsureModal';
+import RemoveEnsureModal from '../RemoveEnsureModal';
 import { setSelectedClient } from '../../actions/clientsFilters';
 
 const EditClientPage = (props) => {
@@ -13,7 +13,7 @@ const EditClientPage = (props) => {
 
     }
     const modal = !!props.clientsFilters.selectedClient ?
-        <ClientRemoveEnsureModal func={removeClientFunction} />
+        <RemoveEnsureModal func={removeClientFunction} type='client' />
         :
         undefined
 

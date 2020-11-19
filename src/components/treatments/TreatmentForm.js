@@ -22,17 +22,18 @@ class TreatmentForm extends React.Component {
 
 
         this.state = {
-            clientName: props.treatment ? props.client.clientName : '',
-            date: props.treatment ? moment(props.client.date).format("YYYY-MM-DD").toString() : moment(),
-            reason: props.treatment ? props.client.sex : '',
+            clientName: props.treatment ? props.treatment.clientName : '',
+            date: props.treatment ? moment(props.treatment.date).format("YYYY-MM-DD HH:mm").toString() : moment(),
+            reason: props.treatment ? props.treatment.reason : '',
             error: '',
-            selected: props.treatment && !jQuery.isEmptyObject(props.treatment.selected) ? treatsOptions.map((option) => props.treatment.selected.includes(option.label) ? option.value : false) : [],
+            selected: props.treatment && !jQuery.isEmptyObject(props.treatment.selected) ? treatsOptions.filter((option) => props.treatment.selected.includes(option.label)).map((option) => option.label) : [],
             buttonText: props.treatment ? 'עדכון טיפול' : 'הוסף טיפול',
 
         }
     }
 
-    activeClients = this.props.clients.map((client) => ({ value: client.fullName, label: client.fullName }));
+
+    activeClients = this.props.clients.filter((client) => client.isActive).map((client) => ({ value: client.fullName, label: client.fullName }));
 
     onChangeTreats = (selected) => {
         this.setState({ selected });
@@ -83,6 +84,8 @@ class TreatmentForm extends React.Component {
                     placeholder={"שם מלא..."}
                     onChange={this.onClientChange}
                     components={{ NoOptionsMessage }}
+                    selec
+                    value={{ label: this.state.clientName, value: this.state.clientName }}
 
                 />
 
