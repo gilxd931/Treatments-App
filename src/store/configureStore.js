@@ -5,6 +5,7 @@ import clientFiltersReducer from '../reducers/clientfilters';
 import clientsReducer from '../reducers/clients';
 import treatsFiltersReducer from '../reducers/treatsfilters';
 import futureTreatmentsReducer from '../reducers/futureTreatments';
+import historyTreatmentsReducer from '../reducers/historyTreatments';
 
 const compposeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -16,7 +17,8 @@ export default () => {
             clientsFilters: clientFiltersReducer,
             clients: clientsReducer,
             futureTreatments: futureTreatmentsReducer,
-            treatsFilters: treatsFiltersReducer
+            treatsFilters: treatsFiltersReducer,
+            historyTreatments: historyTreatmentsReducer
 
         }),
         compposeEnhancers(applyMiddleware(thunk))

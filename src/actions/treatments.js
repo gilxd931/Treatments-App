@@ -50,9 +50,9 @@ export const startSetFutureTreatments = () => {
             snapshot.forEach((childSnapshot) => {
                 if (childSnapshot.val().date <= new Date().getTime()) {
                     //remove treat from future and add it to history
-                    console.log("remove treat from future and add it to history")
+                    dispatch(startAddHistoryTreatment(childSnapshot.val()));
+                    dispatch(startRemoveFutureTreatment({ id: childSnapshot.key }))
                 }
-
                 futureTreatments.push({
                     id: childSnapshot.key,
                     ...childSnapshot.val()
@@ -72,6 +72,10 @@ export const checkForNearestDateUpdate = (clientName, cid) => {
         const uid = getState().auth.uid;
 
         getClientFutureTreatments(uid, clientName).then((clientTreatments) => {
+            if (clientTreatments.length === 0) { // no treats. update next treat to none
+                dispatch(startEditClient(cid, { nextTreat: '' }));
+
+            }
             const nearestTreat = ClientNearestTreat(clientTreatments);
             if (nearestTreat)
                 dispatch(startEditClient(cid, { nextTreat: nearestTreat }));
@@ -108,6 +112,71 @@ export const startEditFutureTreatment = (id, updates) => {
         return db.ref(`/${uid}/futureTreatments/${id}`).update(updates).then(() => {
             dispatch(editFutureTreatment(id, updates))
             dispatch(checkForNearestDateUpdate(updates.clientName, updates.clientId));
+
+            if (updates.date && updates.date <= new Date().getTime()) {
+                dispatch(startAddHistoryTreatment(updates));
+                dispatch(startRemoveFutureTreatment({ id })).then(() => {
+                    console.log('removed future treatment')
+                    dispatch(checkForNearestDateUpdate(updates.clientName, updates.clientId));
+                })
+            }
         });
     }
 }
+
+
+export const setHistoryTreatments = (treatments) => ({
+    type: 'SET_HISTORY_TREATMENTS',
+    treatments
+})
+
+
+export const startSetHistoryTreatments = () => {
+    return (dispatch, getState) => {
+        const uid = getState().auth.uid;
+        return db.ref(`${uid}/historyTreatments`).once('value').then((snapshot) => {
+            const historyTreatments = [];
+
+            snapshot.forEach((childSnapshot) => {
+                futureTreatments.push({
+                    id: childSnapshot.key,
+                    ...childSnapshot.val()
+                });
+            });
+
+            dispatch(setHistoryTreatments(historyTreatments));
+        });
+    };
+};
+
+
+export const addHistoryTreatment = (treatment = {}) => ({
+    type: 'ADD_HISTORY_TREATMENT',
+    treatment
+})
+
+export const startAddHistoryTreatment = (treatmentData = {}) => {
+    return (dispatch, getState) => {
+        const uid = getState().auth.uid;
+        const {
+            clientName = '',
+            selected = [],
+            date = 1604540165785, // dummy
+            reason = '',
+            clientId = undefined,
+            updatedFirstTime = false
+        } = treatmentData;
+
+        const sentSelected = { ...selected }
+
+        const treatment = { clientName, date, selected: sentSelected, reason, clientId, updatedFirstTime };
+        const dispatchTreatment = { clientName, date, selected, reason, clientId, updatedFirstTime };
+
+        return db.ref(`${uid}/historyTreatments`).push(treatment).then((ref) => {
+            dispatch(addHistoryTreatment({
+                id: ref.key,
+                ...dispatchTreatment
+            }))
+        });
+    }
+};

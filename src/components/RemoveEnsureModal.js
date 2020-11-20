@@ -19,7 +19,7 @@ const RemoveEnsureModal = (props) => {
     }
     return (
         <Modal
-            isOpen={!!filters.selectedTreatment}
+            isOpen={!!selected}
             contentLabel="Selected Option"
             onRequestClose={() => { selectFuntion('') }}
             closeTimeoutMS={200}

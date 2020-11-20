@@ -27,6 +27,12 @@
     margin-bottom: $m-size;
 }
 
+.button--ok {
+    @extend .button;
+    background:$blue;
+    margin-bottom: $m-size;
+}
+
 .remove-cancel-buttons{
     display: flex;
     flex-direction: row;
