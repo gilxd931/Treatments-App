@@ -14,3 +14,20 @@ export const getClientFutureTreatments = (uid, fullName) => {
         return clientsTreatments;
     });
 };
+
+
+export const getUnoticedTreatments = (uid) => {
+
+    return db.ref(`${uid}/historyTreatments`).orderByChild('noticed').equalTo(false).once('value').then((snapshot) => {
+        let unoticedTreatments = []
+        snapshot.forEach(childSnapshot => {
+
+            unoticedTreatments.push({
+                treatment: childSnapshot.val(),
+                id: childSnapshot.key
+            });
+
+        });
+        return unoticedTreatments;
+    });
+};

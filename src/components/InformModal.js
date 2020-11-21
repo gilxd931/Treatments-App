@@ -7,7 +7,6 @@ const InformModal = (props) => {
     const { informModalToggel, message, isOpen, activeFunction, obj, history } = props
 
     const onPressEnter = () => {
-        console.log(obj)
         activeFunction(obj);
         informModalToggel();
         history.push('/treatments');

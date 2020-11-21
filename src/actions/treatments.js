@@ -164,13 +164,13 @@ export const startAddHistoryTreatment = (treatmentData = {}) => {
             date = 1604540165785, // dummy
             reason = '',
             clientId = undefined,
-            updatedFirstTime = false
+            noticed = false
         } = treatmentData;
 
         const sentSelected = { ...selected }
 
-        const treatment = { clientName, date, selected: sentSelected, reason, clientId, updatedFirstTime };
-        const dispatchTreatment = { clientName, date, selected, reason, clientId, updatedFirstTime };
+        const treatment = { clientName, date, selected: sentSelected, reason, clientId, noticed };
+        const dispatchTreatment = { clientName, date, selected, reason, clientId, noticed };
 
         return db.ref(`${uid}/historyTreatments`).push(treatment).then((ref) => {
             dispatch(addHistoryTreatment({
@@ -180,3 +180,4 @@ export const startAddHistoryTreatment = (treatmentData = {}) => {
         });
     }
 };
+

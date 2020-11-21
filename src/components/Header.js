@@ -2,38 +2,66 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { startLogout } from '../actions/auth';
+import { getUnoticedTreatments } from '../firebase/operations';
 import moment from 'moment';
 import { FaBell, FaSignOutAlt } from 'react-icons/fa';
 import NotificationBadge, { Effect } from 'react-notification-badge';
 
-export const Header = ({ startLogout }) => (
-  <header className='header'>
-    <div className="header__content">
 
-      <Link className="header__title" to="/home">
-        <h1>מגע טל</h1>
-      </Link>
+export class Header extends React.Component {
+  constructor(props) {
+    super(props);
 
-      <h1 className="header__date"> {moment().locale('he').format('DD לMMMM YYYY')}</h1>
+    this.state = {
+      unoticedTreatments: undefined
+    }
+  }
+  componentDidMount() {
+    getUnoticedTreatments(this.props.auth.uid).then((unoticedTreatments) => {
+      this.setState(() => ({ unoticedTreatments }));
+    })
 
-      <div className="header__title-notification">
-        <i>
-          <NotificationBadge count={2} effect={Effect.SCALE} style={{ backgroundColor: ' #F84F31', color: ' #f7f7f7', marginTop: 3, marginRight: -5 }} />
-        </i>
-        <div className="header__title-notification">
-          <FaBell className="header__iconbell" />
+  }
+  render() {
+
+    const { startLogout } = this.props;
+    return (
+      <header className='header'>
+        <div className="header__content">
+
+          <Link className="header__title" to="/home">
+            <h1>מגע טל</h1>
+          </Link>
+
+          <h1 className="header__date"> {moment().locale('he').format('DD לMMMM YYYY')}</h1>
+
+          <div className="header__title-notification">
+            <i>
+              <NotificationBadge count={this.state.unoticedTreatments && this.state.unoticedTreatments.length} effect={Effect.SCALE} style={{ backgroundColor: ' #F84F31', color: ' #f7f7f7', marginTop: 3, marginRight: -5 }} />
+            </i>
+            <div className="header__title-notification">
+              <FaBell className="header__iconbell" />
+            </div>
+            <i onClick={startLogout} className="header__logout-icon">
+              <FaSignOutAlt />
+            </i>
+          </div>
+
         </div>
-        <i onClick={startLogout} className="header__logout-icon">
-          <FaSignOutAlt />
-        </i>
-      </div>
+      </header>
+    )
+  }
+}
 
-    </div>
-  </header>
-);
 
 const mapDispatchToProps = (dispatch) => ({
   startLogout: () => dispatch(startLogout())
 })
 
-export default connect(undefined, mapDispatchToProps)(Header);
+const mapStateToProps = (state) => {
+  return {
+    auth: state.auth,
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);
