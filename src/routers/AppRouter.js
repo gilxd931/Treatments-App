@@ -10,7 +10,8 @@ import TreatmentsPage from '../components/treatments/TreatmentsPage';
 import AddClientPage from '../components/clients/AddClientPage';
 import EditClientPage from '../components/clients/EditClientPage';
 import AddTreatmentPage from '../components/treatments/AddTreatmentPage';
-import editFutureTreamtmentPage from '../components/treatments/editFutureTreamtmentPage'
+import EditFutureTreamtmentPage from '../components/treatments/EditFutureTreamtmentPage';
+import EditHistoryTreatmentPage from '../components/treatments/EditHistoryTreatmentPage';
 import NotFoundPage from '../components/NotFoundPage';
 import PrivateRoute from './PrivateRoute';
 import PublicRoute from './PublicRoute';
@@ -30,10 +31,8 @@ const AppRouter = () => (
                 <PrivateRoute path="/createClient" component={AddClientPage} />
                 <PrivateRoute path="/editClient/:id" component={EditClientPage} />
                 <PrivateRoute path="/createTreatment" component={AddTreatmentPage} />
-                <PrivateRoute path="/editFutureTreatment/:id" component={editFutureTreamtmentPage} />
-
-
-
+                <PrivateRoute path="/editFutureTreatment/:id" component={EditFutureTreamtmentPage} />
+                <PrivateRoute path="/editHistoryTreatment/:id" component={EditHistoryTreatmentPage} />
                 <Route component={NotFoundPage} />
             </Switch>
         </div>

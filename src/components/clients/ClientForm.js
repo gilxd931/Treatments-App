@@ -68,7 +68,11 @@ export default class ClientForm extends React.Component {
             this.setState(() => ({ error: errorMsg }));
             window.scrollTo(0, 240);
 
-
+        }
+        else if (!this.state.birthday) {
+            const errorMsg = 'אנא מלא/י תאריך לידה'
+            this.setState(() => ({ error: errorMsg }));
+            window.scrollTo(0, 240);
         } else {
             // clear error
             this.setState(() => ({ error: '' }));

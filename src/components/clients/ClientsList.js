@@ -71,8 +71,7 @@ class ClientsList extends React.Component {
 
 
     render() {
-        const modal = !!this.props.clientsFilters.selectedClient ? <ClientModal /> : undefined
-
+        const modal = !!this.props.clientsFilters.selectedClient ? <ClientModal history={this.props.history} /> : undefined
         return (
             <div className="content-container">
                 <Split

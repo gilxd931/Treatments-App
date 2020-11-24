@@ -19,7 +19,6 @@ class ClientListItem extends React.Component {
             <Split
                 sizes={[24, 24, 24, 24, 4]}
                 className="list-item"
-
             >
 
                 <div>
@@ -54,18 +53,18 @@ class ClientListItem extends React.Component {
                 <div className="list-item__icons">
                     <i>
                         <Link className="center client-item-icon-orange" to={`/editClient/${id}`}>
-                            <FaEdit />
+                            <FaEdit data-tip="עריכה" />
                         </Link>
                     </i>
 
                     <i>
                         <div className="center client-item-icon" onClick={() => { setSelectedClient(id) }}>
-                            <FaInfo />
+                            <FaInfo data-tip="מידע" />
+
                         </div>
                     </i>
 
                 </div>
-
             </Split>
 
         );

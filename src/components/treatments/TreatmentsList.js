@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import FutureTreatments from '../../selectors/FutureTreatments';
+import Treatments from '../../selectors/Treatments';
 import Split from 'react-split'
 import { FaSort, FaSortUp, FaSortDown } from 'react-icons/fa';
 import TreatmentListItem from './TreatmentListItem';
@@ -71,8 +71,7 @@ class TreatmentsList extends React.Component {
 
     render() {
         const modal = !!this.props.treatmentsFilters.selectedTreatment ? <TreatmentModal /> : undefined
-
-
+        const treatmentsList = this.props.treatmentsFilters.display === 'historyTreatments' ? this.props.historyTreatments : this.props.futureTreatments
         return (
             <div className="content-container">
 
@@ -106,23 +105,22 @@ class TreatmentsList extends React.Component {
 
                 </Split>
 
-                {this.props.treatmentsFilters.display === 'historyTreatments' ?
-                    <p> history</p>
-                    :
-                    <div className="list-body">
-                        {
-                            this.props.futureTreatments.length === 0 ? (
-                                <div className="list-item list-item--message">
-                                    <span >לא נמצאו טיפולים</span>
-                                </div>
-                            ) :
-                                (
-                                    this.props.futureTreatments.map((treat) => (
-                                        <TreatmentListItem key={treat.id} {...treat} />
-                                    ))
-                                )
-                        }
-                    </div>}
+                <div className="list-body">
+                    {
+                        treatmentsList.length === 0 ? (
+                            <div className="list-item list-item--message">
+                                <span >לא נמצאו טיפולים</span>
+                            </div>
+                        ) :
+                            (
+                                treatmentsList.map((treat) => (
+                                    <TreatmentListItem key={treat.id} {...treat} type={this.props.treatmentsFilters.display}
+                                    />
+                                ))
+                            )
+                    }
+                </div>
+
                 {modal}
             </div>
         )
@@ -133,7 +131,8 @@ class TreatmentsList extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        futureTreatments: FutureTreatments(state.futureTreatments, state.treatsFilters),
+        futureTreatments: Treatments(state.futureTreatments, state.treatsFilters),
+        historyTreatments: Treatments(state.historyTreatments, state.treatsFilters),
         treatmentsFilters: state.treatsFilters
     };
 };

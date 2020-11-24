@@ -3,19 +3,33 @@ import { connect } from 'react-redux';
 import Split from 'react-split';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
-import { FaInfo, FaEdit } from 'react-icons/fa';
+import { FaInfo, FaEdit, FaCheck } from 'react-icons/fa';
 import { setSelectedTreatment } from '../../actions/treatsFilters';
+import { startSetTreatmentNoticed } from '../../actions/treatments';
 
 class TreatmentListItem extends React.Component {
 
+    state = {
+        noticed: this.props.noticed,
+        colored: this.props.type === 'historyTreatments' && !this.props.noticed ? { backgroundColor: '#ebe4e4' } : null
+    }
+
     render() {
+        const { clientName, date, selected, setSelectedTreatment, id, type, startSetTreatmentNoticed } = this.props;
 
-        const { clientName, date, selected, setSelectedTreatment, id } = this.props;
+        let treatsToRender = selected ? selected.slice(0, 2) : [];
 
-        let treatsToRender = selected ? selected.slice(0, 2) : []
+        const editPath = type === 'historyTreatments' ? 'editHistoryTreatment' : 'editFutureTreatment';
+
+        const setNoticedTreatment = (id) => {
+            startSetTreatmentNoticed(id);
+            this.setState(() => ({ noticed: !this.state.noticed, colored: null }))
+
+        }
 
         return (
             <Split
+                style={this.state.colored}
                 sizes={[27, 36, 27, 10]}
                 className="list-item"
 
@@ -43,20 +57,33 @@ class TreatmentListItem extends React.Component {
                     </h3>
                 </div>
 
+
                 <div className="list-item__icons">
+
                     <i>
-                        <Link className="center client-item-icon-orange" to={`/editFutureTreatment/${id}`}>
-                            <FaEdit />
+                        <Link className="center client-item-icon-orange" to={`/${editPath}/${id}`}>
+                            <FaEdit data-tip="עריכה" />
                         </Link>
                     </i>
 
                     <i>
                         <div className="center client-item-icon" onClick={() => { setSelectedTreatment(id) }}>
-                            <FaInfo />
+                            <FaInfo data-tip="מידע" />
                         </div>
                     </i>
 
+
+                    {
+                        type === 'historyTreatments' && !this.state.noticed ?
+                            <i>
+                                <div className="center client-item-icon-green" onClick={() => { setNoticedTreatment(id) }}>
+                                    <FaCheck data-tip="ראיתי" />
+                                </div>
+
+                            </i> : undefined
+                    }
                 </div>
+
 
             </Split>
         );
@@ -64,7 +91,8 @@ class TreatmentListItem extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-    setSelectedTreatment: (text) => dispatch(setSelectedTreatment(text))
+    setSelectedTreatment: (text) => dispatch(setSelectedTreatment(text)),
+    startSetTreatmentNoticed: (id) => dispatch(startSetTreatmentNoticed(id))
 });
 
 export default connect(undefined, mapDispatchToProps)(TreatmentListItem);

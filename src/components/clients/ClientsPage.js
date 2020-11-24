@@ -2,11 +2,12 @@ import React from 'react';
 import ClientsListFilters from './ClientsListFilters';
 import ClientsList from './ClientsList';
 
-const ClientsPage = () => {
+const ClientsPage = (props) => {
+
     return (
         <div>
             <ClientsListFilters />
-            <ClientsList />
+            <ClientsList history={props.history} />
         </div>
     );
 };

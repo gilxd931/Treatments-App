@@ -36,3 +36,9 @@
     margin: 0 0 $m-size 0;
   }
   
+  .modal__buttons{
+    flex-direction: row;
+    display: flex;
+    justify-content: space-between;
+  }
+

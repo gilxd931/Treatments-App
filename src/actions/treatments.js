@@ -138,7 +138,7 @@ export const startSetHistoryTreatments = () => {
             const historyTreatments = [];
 
             snapshot.forEach((childSnapshot) => {
-                futureTreatments.push({
+                historyTreatments.push({
                     id: childSnapshot.key,
                     ...childSnapshot.val()
                 });
@@ -181,3 +181,35 @@ export const startAddHistoryTreatment = (treatmentData = {}) => {
     }
 };
 
+export const setTreatmentNoticed = (id) => ({
+    type: 'SET_TREATMENT_NOTICED',
+    id
+})
+
+export const startSetTreatmentNoticed = (id) => {
+    return (dispatch, getState) => {
+        const uid = getState().auth.uid;
+
+        return db.ref(`/${uid}/historyTreatments/${id}`).update({ noticed: true }).then(() => {
+
+            dispatch(setTreatmentNoticed(id));
+
+        });
+    }
+}
+
+
+export const editHistoryTreatment = (id, updates) => ({
+    type: 'EDIT_HISTORY_TREATMENT',
+    id,
+    updates
+});
+
+export const startHistoryTreatment = (id, updates) => {
+    return (dispatch, getState) => {
+        const uid = getState().auth.uid;
+        return db.ref(`/${uid}/historyTreatments/${id}`).update(updates).then(() => {
+            dispatch(editHistoryTreatment(id, updates));
+        });
+    }
+}

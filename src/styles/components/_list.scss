@@ -28,6 +28,11 @@
     }
 }
 
+.link-item{
+    text-decoration: none;
+
+}
+
 .list-item--message {
     align-items: center;
     justify-content: center;
@@ -100,9 +105,17 @@ font-size: 18px;
     &:hover {
         color: darken(#b38600, 20%);
 
-}
+    }
 }
 
+.client-item-icon-green{
+    @extend .client-item-icon;
+    color:#228B22	;
+    &:hover {
+        color: darken(#228B22, 20%);
+
+    }
+}
 
 
 @keyframes wobble {

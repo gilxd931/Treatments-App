@@ -10,15 +10,14 @@ import 'react-dates/lib/css/_datepicker.css';
 import { firebase } from './firebase/firebase';
 import LoadingPage from './components/LoadingPage';
 import { startSetClients } from './actions/clients';
-import { startSetFutureTreatments } from './actions/treatments';
-
-
+import { startSetFutureTreatments, startSetHistoryTreatments } from './actions/treatments';
 
 const store = configureStore();
 
 const jsx = (
     <Provider rtl store={store}>
         <AppRouter />
+
     </Provider>
 );
 let hadRendered = false;
@@ -38,10 +37,13 @@ firebase.auth().onAuthStateChanged((user) => {
 
         store.dispatch(startSetClients()).then(() => {
             store.dispatch(startSetFutureTreatments()).then(() => {
-                renderApp();
-                if (history.location.pathname === '/') {
-                    history.push('/dashboard');
-                }
+                store.dispatch(startSetHistoryTreatments()).then(() => {
+                    renderApp();
+                    if (history.location.pathname === '/') {
+                        history.push('/dashboard');
+                    }
+                })
+
             }) // set treatments
         }) // set clients
     }

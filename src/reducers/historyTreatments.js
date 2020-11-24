@@ -15,6 +15,17 @@ export default (state = treatmentsReduerDefaultState, action) => {
                     return treatment;
                 }
             })
+        case 'SET_TREATMENT_NOTICED':
+            return state.map((treatment) => {
+                if (treatment.id === action.id) {
+                    return {
+                        ...treatment,
+                        ...action.noticed
+                    }
+                } else {
+                    return treatment;
+                }
+            })
         case 'SET_HISTORY_TREATMENTS':
             return action.treatments;
         default:

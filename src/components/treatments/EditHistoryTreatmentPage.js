@@ -1,8 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import TreatmentForm from './TreatmentForm';
 import { startEditFutureTreatment, startRemoveFutureTreatment } from '../../actions/treatments';
-import RemoveEnsureModal from '../RemoveEnsureModal';
 import { setSelectedTreatment } from '../../actions/treatsFilters';
 
 const EditTreatmentPage = (props) => {
@@ -24,14 +22,6 @@ const EditTreatmentPage = (props) => {
                 </div>
             </div>
             <div className="content-container">
-                <TreatmentForm
-                    treatment={props.treatment}
-                    onSubmit={(treatment) => {
-                        props.startEditFutureTreatment(props.treatment.id, treatment);
-                        props.history.push('/treatments');
-
-                    }}
-                />
                 <button className="button--red" onClick={() => {
                     props.setSelectedTreatment(props.treatment.id);
 
