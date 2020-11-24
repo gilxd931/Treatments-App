@@ -5,7 +5,7 @@ import { startEditFutureTreatment, startRemoveFutureTreatment } from '../../acti
 import RemoveEnsureModal from '../RemoveEnsureModal';
 import { setSelectedTreatment } from '../../actions/treatsFilters';
 
-const EditTreatmentPage = (props) => {
+const EditFutureTreatmentPage = (props) => {
     const removeTreatmentFunction = () => {
         props.startRemoveFutureTreatment(props.treatment);
         props.history.push('/treatments');
@@ -56,4 +56,4 @@ const mapDispatchToProps = (dispatch) => ({
     startRemoveFutureTreatment: (client) => dispatch(startRemoveFutureTreatment(client))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(EditTreatmentPage);
+export default connect(mapStateToProps, mapDispatchToProps)(EditFutureTreatmentPage);

@@ -2,8 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { startEditFutureTreatment, startRemoveFutureTreatment } from '../../actions/treatments';
 import { setSelectedTreatment } from '../../actions/treatsFilters';
+import EditHistoryTreatmentForm from './EditHistoryTreatmentForm';
 
-const EditTreatmentPage = (props) => {
+const EditHistoryTreatmentPage = (props) => {
     const removeTreatmentFunction = () => {
         props.startRemoveFutureTreatment(props.treatment);
         props.history.push('/treatments');
@@ -13,7 +14,6 @@ const EditTreatmentPage = (props) => {
         <RemoveEnsureModal func={removeTreatmentFunction} type='treatment' />
         :
         undefined
-
     return (
         <div>
             <div className="page-header">
@@ -22,6 +22,9 @@ const EditTreatmentPage = (props) => {
                 </div>
             </div>
             <div className="content-container">
+
+                <EditHistoryTreatmentForm treatment={props.treatment} />
+
                 <button className="button--red" onClick={() => {
                     props.setSelectedTreatment(props.treatment.id);
 
@@ -36,7 +39,7 @@ const EditTreatmentPage = (props) => {
 const mapStateToProps = (state, props) => {
     return {
         treatsFilters: state.treatsFilters,
-        treatment: state.futureTreatments.find((treatment) => (treatment.id === props.match.params.id))
+        treatment: state.historyTreatments.find((treatment) => (treatment.id === props.match.params.id))
     };
 }
 
@@ -46,4 +49,4 @@ const mapDispatchToProps = (dispatch) => ({
     startRemoveFutureTreatment: (client) => dispatch(startRemoveFutureTreatment(client))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(EditTreatmentPage);
+export default connect(mapStateToProps, mapDispatchToProps)(EditHistoryTreatmentPage);
