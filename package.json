@@ -4,6 +4,9 @@
   "main": "index.js",
   "author": "Gil Rotem",
   "license": "MIT",
+  "engines": {
+    "node": "12.x"
+  },
   "scripts": {
     "build:dev": "webpack",
     "build:prod": "webpack -p --env production",
