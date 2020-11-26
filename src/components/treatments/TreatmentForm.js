@@ -125,8 +125,9 @@ class TreatmentForm extends React.Component {
                     }}
                 />
 
+                <p className="page-header__title" style={{ marginBottom: 10 }}>סיבת הגעה</p>
                 <textarea className="textarea"
-                    placeholder=" סיבת הגעה (אופציונלי)"
+                    placeholder="סיבת הגעה (אופציונלי)"
                     value={this.state.reason}
                     onChange={this.onReasonChange}
                 >

@@ -39,3 +39,11 @@
       font-style: italic;
       color: $grey;
   }
+
+
+.form__edit-history-treatment-seperator{
+    border: 3px solid darken($off-white, 12%);
+    border-top: none;
+    margin-top: 10px;
+    margin-bottom: 100px;
+}
