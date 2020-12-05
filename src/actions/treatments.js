@@ -205,7 +205,7 @@ export const editHistoryTreatment = (id, updates) => ({
     updates
 });
 
-export const startHistoryTreatment = (id, updates) => {
+export const startEditHistoryTreatment = (id, updates) => {
     return (dispatch, getState) => {
         const uid = getState().auth.uid;
         return db.ref(`/${uid}/historyTreatments/${id}`).update(updates).then(() => {

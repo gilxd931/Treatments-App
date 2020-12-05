@@ -55,7 +55,10 @@ class TreatmentForm extends React.Component {
             const errorMsg = 'אנא מלא/י שם מטופל'
             this.setState(() => ({ error: errorMsg }));
             window.scrollTo(0, 240);
-
+        } else if (this.state.selected.length === 0) {
+            const errorMsg = 'אנא מלא/י סוג טיפול'
+            this.setState(() => ({ error: errorMsg }));
+            window.scrollTo(0, 240);
         } else {
             this.props.onSubmit({
                 clientName: this.state.clientName,

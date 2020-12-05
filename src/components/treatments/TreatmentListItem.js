@@ -61,7 +61,7 @@ class TreatmentListItem extends React.Component {
                 <div className="list-item__icons">
 
                     <i>
-                        <Link className="center client-item-icon-orange" to={`/${editPath}/${id}`}>
+                        <Link className="center client-item-icon-orange" to={{ pathname: `/${editPath}/${id}` }} >
                             <FaEdit data-tip="עריכה" />
                         </Link>
                     </i>

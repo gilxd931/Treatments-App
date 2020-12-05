@@ -7,6 +7,7 @@ import TreatmentListItem from './TreatmentListItem';
 import TreatmentModal from './TreatmentModal'
 import { sortTreatmentByNameUp, sortTreatmentByNameDown, sortTreatmentByDateUp, sortTreatmentByDateDown } from '../../actions/treatsFilters';
 
+
 class TreatmentsList extends React.Component {
 
     state = {
@@ -70,8 +71,9 @@ class TreatmentsList extends React.Component {
     }
 
     render() {
-        const modal = !!this.props.treatmentsFilters.selectedTreatment ? <TreatmentModal /> : undefined
         const treatmentsList = this.props.treatmentsFilters.display === 'historyTreatments' ? this.props.historyTreatments : this.props.futureTreatments
+        const modal = !!this.props.treatmentsFilters.selectedTreatment ? <TreatmentModal treatmentsList={treatmentsList} /> : undefined
+
         return (
             <div className="content-container">
 
@@ -122,6 +124,8 @@ class TreatmentsList extends React.Component {
                 </div>
 
                 {modal}
+
+
             </div>
         )
     }

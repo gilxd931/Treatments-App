@@ -47,3 +47,22 @@
     margin-top: 10px;
     margin-bottom: 100px;
 }
+
+.form__edit-history-data{
+    display: flex;
+    flex-direction: row;
+}
+
+.form__edit-history-data__item{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: $grey;
+    margin-left: $l-size;
+    padding-top: $m-size;
+
+}
+
+.form__edit-history-data__select{
+    width: 200px;
+}

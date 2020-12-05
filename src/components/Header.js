@@ -45,7 +45,7 @@ export class Header extends React.Component {
               <FaBell data-tip="נוטיפיקציות" className="header__iconbell" />
             </div>
             <i onClick={startLogout} className="header__logout-icon">
-              <FaSignOutAlt data-tip="התנתקות" />
+              <FaSignOutAlt data-tip="התנתק" />
             </i>
           </div>
 
