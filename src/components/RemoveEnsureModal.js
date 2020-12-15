@@ -8,7 +8,6 @@ Modal.setAppElement(document.getElementById('app'));
 
 const RemoveEnsureModal = (props) => {
     const { func, type } = props
-
     const filters = type === 'client' ? props.clientsFilters : props.treatsFilters
     const selectFuntion = type === 'client' ? props.setSelectedClient : props.setSelectedTreatment
     const selected = type === 'client' ? filters.selectedClient : filters.selectedTreatment
@@ -18,6 +17,7 @@ const RemoveEnsureModal = (props) => {
         func();
     }
     return (
+
         <Modal
             isOpen={!!selected}
             contentLabel="Selected Option"

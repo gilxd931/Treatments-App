@@ -3,11 +3,11 @@ import { connect } from 'react-redux';
 import { startEditHistoryTreatment, startRemoveHistoryTreatment, startSetTreatmentNoticed } from '../../actions/treatments';
 import { setSelectedTreatment } from '../../actions/treatsFilters';
 import EditHistoryTreatmentForm from './EditHistoryTreatmentForm';
+import RemoveEnsureModal from '../RemoveEnsureModal';
 
 const EditHistoryTreatmentPage = (props) => {
-    console.log(props)
     const removeTreatmentFunction = () => {
-        props.startRemoveFutureTreatment(props.treatment);
+        props.startRemoveHistoryTreatment(props.treatment);
         props.history.push('/treatments');
 
     }
@@ -15,8 +15,12 @@ const EditHistoryTreatmentPage = (props) => {
         <RemoveEnsureModal func={removeTreatmentFunction} type='treatment' />
         :
         undefined
+
     return (
         <div>
+
+
+
             <div className="page-header">
                 <div className="content-container">
                     <h1 className="page-header__title">עדכון טיפול</h1>
@@ -38,8 +42,8 @@ const EditHistoryTreatmentPage = (props) => {
 
                 }}>הסרת טיפול</button>
             </div>
-            { modal}
 
+            {modal}
         </div>
     );
 };

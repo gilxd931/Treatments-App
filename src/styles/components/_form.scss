@@ -66,3 +66,56 @@
 .form__edit-history-data__select{
     width: 200px;
 }
+
+.form__edit-history-add-icon{
+    color:#009900;
+    font-size: $l-size;
+     &:hover {
+        color: darken(#009900, 15%);
+        cursor: pointer;
+      }
+}
+
+.form__edit-history-aromSynergy-title{
+    text-decoration: underline;
+    font-weight: 300;
+}
+
+.form__edit-history-row{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: $l-size;
+}
+
+
+.form__edit-history-column{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin: $l-size 0 $l-size 0;
+}
+
+.form__edit-history-add-icon__purple{
+    color:#8510D8;
+    font-size: $ml-size;
+     &:hover {
+        color: darken(#8510D8, 15%);
+        cursor: pointer;
+      }
+}
+
+.form__edit-history-add-icon__red{
+    color: red;
+    font-size: $ml-size;
+     &:hover {
+        color: darken(red, 15%);
+        cursor: pointer;
+      }
+}
+
+.form__edit-synergy-title-icon{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}

@@ -4,9 +4,12 @@ import { treatsOptions } from '../../utils';
 import jQuery from 'jquery';
 import { InputMoment } from 'react-input-moment';
 import DualListBox from 'react-dual-listbox';
-import { FaChevronLeft, FaChevronRight, FaChevronUp, FaChevronDown } from 'react-icons/fa';
+import { FaChevronLeft, FaChevronRight, FaChevronUp, FaChevronDown, FaPlusCircle } from 'react-icons/fa';
 import Select from 'react-select';
 import { cardsTypeOptions } from '../../utils';
+import { AromatherapySynergy } from '../../objects/AromatherapySynergy';
+import AromSynergyItem from './AromSynergyItem';
+
 
 const NoOptionsMessage = () => {
     return (
@@ -31,7 +34,9 @@ class EditHistoryTreatmentForm extends React.Component {
             bachFlowersHow: props.treatment.bachFlowersHow ? props.treatment.bachFlowersHow : '',
             bachFlowersSynergyPurpose: props.treatment.bachFlowersSynergyPurpose ? props.treatment.bachFlowersSynergyPurpose : '',
             cardsPurpose: props.treatment.cardsPurpose ? props.treatment.cardsPurpose : '',
-            cardsType: props.treatment.cardsType ? props.treatment.cardsType : ''
+            cardsType: props.treatment.cardsType ? props.treatment.cardsType : '',
+            aromatherapySynergyList: props.treatment.aromatherapySynergyList ? props.treatment.aromatherapySynergyList : [],
+
 
         }
     }
@@ -51,7 +56,8 @@ class EditHistoryTreatmentForm extends React.Component {
             bachFlowersHow: this.state.bachFlowersHow,
             bachFlowersSynergyPurpose: this.state.bachFlowersSynergyPurpose,
             cardsPurpose: this.state.cardsPurpose,
-            cardsType: this.state.cardsType
+            cardsType: this.state.cardsType,
+            aromatherapySynergyList: this.state.aromatherapySynergyList
         }
         this.props.onSubmit(obj);
     })
@@ -121,6 +127,45 @@ class EditHistoryTreatmentForm extends React.Component {
     onCardsTypeChange = (type) => {
         this.setState({ cardsType: type.label });
     }
+
+    addNewSynergy = () => {
+        if (this.state.aromatherapySynergyList.length < 5) {
+            let aromatherapySynergy = new AromatherapySynergy(this.state.aromatherapySynergyList.length + 1);
+            this.state.aromatherapySynergyList.push(aromatherapySynergy);
+            this.setState({ aromatherapySynergyList: this.state.aromatherapySynergyList });
+        }
+    }
+
+    updateSynergyList = (id, type, prop) => {
+        let newList = this.state.aromatherapySynergyList;
+
+        switch (prop) {
+            case "carrier":
+                newList[id - 1].carrier = type;
+                break;
+            case "carrierOil":
+                newList[id - 1].carrierOil = type;
+                break;
+            case "extractsList":
+                newList[id - 1].extractsList = type;
+                break;
+            case "consumeTime":
+                newList[id - 1].consumeTime = type;
+                break;
+            case "purpose":
+                newList[id - 1].purpose = type;
+                break;
+            case "formOfUse":
+                newList[id - 1].formOfUse = type;
+                break;
+            case "removeSynergy":
+                newList.splice([id - 1], 1);
+                break;
+        }
+
+        this.setState({ aromatherapySynergyList: newList });
+    }
+
 
     render() {
         const { clientName } = this.props.treatment;
@@ -293,8 +338,22 @@ class EditHistoryTreatmentForm extends React.Component {
 
                 {this.state.selected.includes("ארומתרפיה") &&
                     <div>
-
-                    </div>}
+                        <p className="page-header__title" style={{ marginBottom: 10 }}>ארומתרפיה</p>
+                        {
+                            this.state.aromatherapySynergyList.map((synergy) => (
+                                <AromSynergyItem key={synergy.id}
+                                    {...synergy}
+                                    updateSynergyList={(type, prop) => this.updateSynergyList(synergy.id, type, prop)}
+                                />
+                            ))
+                        }
+                        {this.state.aromatherapySynergyList.length < 5 ?
+                            <i className="form__edit-history-add-icon" onClick={this.addNewSynergy}>
+                                <FaPlusCircle style={{ marginTop: 30 }} data-tip="סינרגיה חדשה" />
+                            </i> : undefined
+                        }
+                    </div>
+                }
 
                 <div>
                     <button className="button" style={{ marginTop: 26 }}>עדכון טיפול</button>

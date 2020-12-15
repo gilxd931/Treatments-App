@@ -213,3 +213,18 @@ export const startEditHistoryTreatment = (id, updates) => {
         });
     }
 }
+
+export const removeHistoryTreatment = ({ id } = {}) => ({
+    type: 'REMOVE_HISTORY_TREATMENT',
+    id
+});
+
+export const startRemoveHistoryTreatment = ({ id } = {}) => {
+    return (dispatch, getState) => {
+        const uid = getState().auth.uid;
+
+        return db.ref(`${uid}/historyTreatments/${id}`).remove().then(() => {
+            dispatch(removeHistoryTreatment({ id }));
+        });
+    };
+};

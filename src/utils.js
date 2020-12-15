@@ -15,3 +15,20 @@ export const cardsTypeOptions = [
     { value: 'עם מה באתי', label: 'עם מה באתי' },
     { value: 'קלף מסר', label: 'קלף מסר' }
 ];
+
+export const aromCarriars = [
+    { value: 'שמן', label: 'שמן' },
+    { value: 'מים עם אלכוהול', label: 'מים עם אלכוהול' },
+    { value: 'משחה ', label: 'משחה' },
+];
+
+export const aromFormOfUse = [
+    { value: 'מריחה', label: 'מריחה' },
+    { value: 'אמבטיה', label: 'אמבטיה' },
+    { value: 'מבער', label: 'מבער' },
+    { value: 'קומפרסים', label: 'קומפרסים' },
+    { value: 'הרחה', label: 'הרחה' },
+    { value: 'אחר', label: 'אחר' }
+
+];
+

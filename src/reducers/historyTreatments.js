@@ -28,6 +28,8 @@ export default (state = treatmentsReduerDefaultState, action) => {
             })
         case 'SET_HISTORY_TREATMENTS':
             return action.treatments;
+        case 'REMOVE_HISTORY_TREATMENT':
+            return state.filter(({ id }) => (id !== action.id))
         default:
             return state;
     }

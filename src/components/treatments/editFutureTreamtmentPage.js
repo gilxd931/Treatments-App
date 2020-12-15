@@ -27,6 +27,7 @@ const EditFutureTreatmentPage = (props) => {
                 <TreatmentForm
                     treatment={props.treatment}
                     onSubmit={(treatment) => {
+                        console.log(treatment)
                         props.startEditFutureTreatment(props.treatment.id, treatment);
                         props.history.push('/treatments');
 
