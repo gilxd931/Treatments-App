@@ -22,7 +22,7 @@ const EditHistoryTreatmentPage = (props) => {
 
 
             <div className="page-header">
-                <div className="content-container">
+                <div className="content-container center">
                     <h1 className="page-header__title">עדכון טיפול</h1>
                 </div>
             </div>

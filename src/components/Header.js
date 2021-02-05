@@ -31,7 +31,7 @@ export class Header extends React.Component {
       <header className='header'>
         <div className="header__content">
 
-          <Link className="header__title" to="/home">
+          <Link className="header__title" to="/clients">
             <h1>מגע טל</h1>
           </Link>
 

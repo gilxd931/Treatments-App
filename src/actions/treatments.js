@@ -16,13 +16,14 @@ export const startAddTreatment = (treatmentData = {}) => {
             selected = [],
             date = 1604540165785, // dummy
             reason = '',
-            clientId = undefined
+            clientId = undefined,
+            price = 0
         } = treatmentData;
 
         const sentSelected = { ...selected }
 
-        const treatment = { clientName, date, selected: sentSelected, reason, clientId };
-        const dispatchTreatment = { clientName, date, selected, reason, clientId };
+        const treatment = { clientName, date, selected: sentSelected, reason, price, clientId };
+        const dispatchTreatment = { clientName, date, selected, reason, price, clientId };
 
         return db.ref(`${uid}/futureTreatments`).push(treatment).then((ref) => {
             dispatch(addTreatment({

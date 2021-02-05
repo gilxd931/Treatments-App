@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { FaHome, FaUserFriends, FaNotesMedical, FaCalendarAlt, FaChartArea } from 'react-icons/fa';
+import { FaUserFriends, FaNotesMedical, FaCalendarAlt, FaChartArea } from 'react-icons/fa';
 
 export const NavHeader = () => {
     const size = "3.2rem";
@@ -9,10 +9,6 @@ export const NavHeader = () => {
         <div className="page-header">
             <div className="nav-header">
 
-                <NavLink className="nav-header__item" to="/home" activeClassName="is-active" exact={true}>
-                    <FaHome size={size} />
-                    <span className="nav-header__itemtext">בית</span>
-                </NavLink>
 
                 <NavLink className="nav-header__item" to="/clients" activeClassName="is-active" exact={true}>
                     <FaUserFriends size={size} />

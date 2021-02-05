@@ -20,7 +20,6 @@ class TreatmentForm extends React.Component {
     constructor(props) {
         super(props);
 
-
         this.state = {
             clientName: props.treatment ? props.treatment.clientName : '',
             date: props.treatment ? moment(props.treatment.date).format("YYYY-MM-DD HH:mm").toString() : moment(),
@@ -28,6 +27,7 @@ class TreatmentForm extends React.Component {
             error: '',
             selected: props.treatment && !jQuery.isEmptyObject(props.treatment.selected) ? treatsOptions.filter((option) => props.treatment.selected.includes(option.label)).map((option) => option.label) : [],
             buttonText: props.treatment ? 'עדכון טיפול' : 'הוסף טיפול',
+            price: props.treatment ? props.treatment.price : ''
 
         }
     }
@@ -47,6 +47,13 @@ class TreatmentForm extends React.Component {
         this.setState({ reason });
     }
 
+    onPriceChange = (e) => {
+        const price = e.target.value;
+        if (price.match(/^[0-9]+$/) || price === "") {
+            this.setState({ price });
+        }
+    }
+
 
     onSubmit = ((e) => {
         e.preventDefault();
@@ -59,12 +66,20 @@ class TreatmentForm extends React.Component {
             const errorMsg = 'אנא מלא/י סוג טיפול'
             this.setState(() => ({ error: errorMsg }));
             window.scrollTo(0, 240);
+
+        }
+        else if (parseInt(this.state.price) < 0 || parseInt(this.state.price) > 9999 || this.state.price === "") {
+            const errorMsg = 'אנא בחר/י מחיר הגיוני'
+            this.setState(() => ({ error: errorMsg }));
+            window.scrollTo(0, 240);
+
         } else {
             this.props.onSubmit({
                 clientName: this.state.clientName,
                 date: new Date(this.state.date).getTime(),
                 selected: this.state.selected,
                 reason: this.state.reason,
+                price: this.state.price,
                 clientId: this.props.clients.find((client) => client.fullName === this.state.clientName).id
             });
         }
@@ -135,6 +150,15 @@ class TreatmentForm extends React.Component {
                     onChange={this.onReasonChange}
                 >
                 </textarea>
+
+                <p className="page-header__title" style={{ marginBottom: 10 }}>מחיר</p>
+                <input className="text-input ten"
+                    type="text"
+                    placeholder="מחיר"
+                    autoFocus
+                    value={this.state.price}
+                    onChange={this.onPriceChange}
+                />
 
                 <div>
                     <button className="button" style={{ marginTop: 26 }}>{this.state.buttonText}</button>

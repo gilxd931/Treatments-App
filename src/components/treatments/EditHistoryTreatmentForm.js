@@ -23,6 +23,7 @@ class EditHistoryTreatmentForm extends React.Component {
         this.state = {
             date: props.treatment ? moment(props.treatment.date).format("YYYY-MM-DD HH:mm").toString() : moment(),
             reason: props.treatment ? props.treatment.reason : '',
+            price: props.treatment ? props.treatment.price : "",
             error: '',
             selected: props.treatment && !jQuery.isEmptyObject(props.treatment.selected) ? treatsOptions.filter((option) => props.treatment.selected.includes(option.label)).map((option) => option.label) : [],
             treatmentProcess: props.treatment.treatmentProcess ? props.treatment.treatmentProcess : '',
@@ -47,6 +48,7 @@ class EditHistoryTreatmentForm extends React.Component {
             date: new Date(this.state.date).getTime(),
             selected: this.state.selected,
             reason: this.state.reason,
+            price: this.state.price,
             treatmentProcess: this.state.treatmentProcess,
             selfFeedback: this.state.selfFeedback,
             clientFeedback: this.state.clientFeedback,
@@ -126,6 +128,13 @@ class EditHistoryTreatmentForm extends React.Component {
 
     onCardsTypeChange = (type) => {
         this.setState({ cardsType: type.label });
+    }
+
+    onPriceChange = (e) => {
+        const price = e.target.value;
+        if (price.match(/^[0-9]+$/) || price === "") {
+            this.setState({ price });
+        }
     }
 
     addNewSynergy = () => {
@@ -218,6 +227,15 @@ class EditHistoryTreatmentForm extends React.Component {
                     onChange={this.onReasonChange}
                 >
                 </textarea>
+
+                <p className="page-header__title" style={{ marginBottom: 10 }}>מחיר</p>
+                <input className="text-input ten"
+                    type="text"
+                    placeholder="מחיר"
+                    autoFocus
+                    value={this.state.price}
+                    onChange={this.onPriceChange}
+                />
 
                 <div className="form__edit-history-treatment-seperator"></div>
 

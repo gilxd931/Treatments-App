@@ -19,7 +19,7 @@ const EditFutureTreatmentPage = (props) => {
     return (
         <div>
             <div className="page-header">
-                <div className="content-container">
+                <div className="content-container center">
                     <h1 className="page-header__title">עדכון טיפול</h1>
                 </div>
             </div>
@@ -27,7 +27,6 @@ const EditFutureTreatmentPage = (props) => {
                 <TreatmentForm
                     treatment={props.treatment}
                     onSubmit={(treatment) => {
-                        console.log(treatment)
                         props.startEditFutureTreatment(props.treatment.id, treatment);
                         props.history.push('/treatments');
 

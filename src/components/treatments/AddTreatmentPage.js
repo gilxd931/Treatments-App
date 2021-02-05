@@ -11,8 +11,6 @@ export class AddTreatmentPage extends React.Component {
     }
 
 
-
-
     informModalToggel = () => {
         this.setState(() => ({ informDateModal: !this.state.informDateModal }))
     }
