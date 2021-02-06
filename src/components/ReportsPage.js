@@ -1,11 +1,29 @@
 import React from 'react';
+import calculateTreatmentsPrices from '../selectors/CalculateTreatmentsPrices';
+import { connect } from 'react-redux';
 
-const ReportsPage = () => {
+const ReportsPage = (props) => {
+    const pricesMap = calculateTreatmentsPrices(props.historyTreatments);
+    let totalPrice = 0;
+    for (const key in pricesMap) {
+        totalPrice += pricesMap[key];
+    }
     return (
         <div>
-            Content of reports page
-        </div>
+            {
+                <p> סך כל ההכנסות: {totalPrice} שקלים</p>
+            }
+        </div >
     );
 };
 
-export default ReportsPage;
+
+const mapStateToProps = (state) => {
+    return {
+        futureTreatments: state.futureTreatments,
+        historyTreatments: state.historyTreatments
+    };
+};
+
+export default connect(mapStateToProps)(ReportsPage);
+
