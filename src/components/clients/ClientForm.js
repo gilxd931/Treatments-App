@@ -28,7 +28,7 @@ export default class ClientForm extends React.Component {
 
     onNameChange = (e) => {
         const fullName = e.target.value;
-        if (fullName.match(/^[א-ת0-9 ]{0,25}$/))
+        if (fullName.match(/^[א-ת0-9 ]{0,30}$/))
             this.setState(() => ({ fullName }))
     }
 
@@ -112,7 +112,7 @@ export default class ClientForm extends React.Component {
 
                 <p className="page-header__title" style={{ marginBottom: 10 }}>כתובת</p>
                 <input className="text-input thirty"
-                    maxLength={20}
+                    maxLength={40}
                     type="text"
                     placeholder="כתובת"
                     value={this.state.address}
