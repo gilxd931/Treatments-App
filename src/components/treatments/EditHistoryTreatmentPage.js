@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { startEditHistoryTreatment, startRemoveHistoryTreatment, startSetTreatmentNoticed } from '../../actions/treatments';
+import { startEditHistoryTreatment, startRemoveHistoryTreatment, startSetTreatmentNoticed, uploadImages } from '../../actions/treatments';
 import { setSelectedTreatment } from '../../actions/treatsFilters';
 import EditHistoryTreatmentForm from './EditHistoryTreatmentForm';
 import RemoveEnsureModal from '../RemoveEnsureModal';
@@ -29,8 +29,9 @@ const EditHistoryTreatmentPage = (props) => {
             <div className="content-container">
 
                 <EditHistoryTreatmentForm treatment={props.treatment}
-                    onSubmit={(treatment) => {
+                    onSubmit={(treatment, imagesToUpload) => {
                         props.startEditHistoryTreatment(props.treatment.id, treatment);
+                        props.uploadImages(props.treatment.id, imagesToUpload);
                         props.startSetTreatmentNoticed(props.treatment.id);
                         props.history.push('/treatments');
                     }
@@ -59,7 +60,8 @@ const mapDispatchToProps = (dispatch) => ({
     setSelectedTreatment: (text) => dispatch(setSelectedTreatment(text)),
     startEditHistoryTreatment: (id, updates) => dispatch(startEditHistoryTreatment(id, updates)),
     startRemoveHistoryTreatment: (client) => dispatch(startRemoveHistoryTreatment(client)),
-    startSetTreatmentNoticed: (id) => dispatch(startSetTreatmentNoticed(id))
+    startSetTreatmentNoticed: (id) => dispatch(startSetTreatmentNoticed(id)),
+    uploadImages: (id, images) => dispatch(uploadImages(id, images))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditHistoryTreatmentPage);

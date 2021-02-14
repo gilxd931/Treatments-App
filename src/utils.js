@@ -32,3 +32,5 @@ export const aromFormOfUse = [
 
 ];
 
+export const maxStorageFileSize = 5242880; // 5 mb
+export const maxStorageFilesNumber = 10;

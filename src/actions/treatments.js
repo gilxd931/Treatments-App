@@ -1,7 +1,9 @@
-import db from '../firebase/firebase';
+import db, { storage } from '../firebase/firebase';
 import { getClientFutureTreatments } from '../firebase/operations';
 import ClientNearestTreat from '../selectors/ClientNearestTreat';
 import { startEditClient, startSetClientsTreatments } from './clients';
+import { maxStorageFileSize, maxStorageFilesNumber } from '../utils';
+
 
 export const addTreatment = (treatment = {}) => ({
     type: 'ADD_TREATMENT',
@@ -229,3 +231,37 @@ export const startRemoveHistoryTreatment = ({ id } = {}) => {
         });
     };
 };
+
+export const uploadImages = (treatmentId, files) => {
+    return (dispatch, getState) => {
+        const uid = getState().auth.uid;
+        const acceptedImageTypes = ['image/gif', 'image/jpeg', 'image/png'];
+
+        if (files.length <= maxStorageFilesNumber) {
+            // loop through files
+            for (let i = 0; i < files.length; i++) {
+
+                const currentFile = files[i];
+
+                if (currentFile.type && currentFile.size <= maxStorageFileSize && acceptedImageTypes.includes(currentFile['type'])) {
+                    storage.ref(`${uid}/${treatmentId}`).child(currentFile.name).put(currentFile).then(() => {
+                        console.log("upldaoded files to storage");
+                    })
+                }
+            }
+        }
+        else {
+            alert("מספר התמונות להעלאה גדול מדי");
+        }
+    };
+}
+
+export const getTreatmentImages = (treatmentId, imageName) => {
+    return (dispatch, getState) => {
+        const uid = getState().auth.uid;
+        console.log(treatmentId);
+        const storageRef = storage.ref(`${uid}/${treatmentId}`);
+        return storageRef.child(`${imageName}`).getDownloadURL();
+    };
+}
+

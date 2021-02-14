@@ -1,5 +1,6 @@
 import React from 'react';
 import moment from 'moment';
+import { connect } from 'react-redux';
 import { treatsOptions } from '../../utils';
 import jQuery from 'jquery';
 import { InputMoment } from 'react-input-moment';
@@ -9,6 +10,8 @@ import Select from 'react-select';
 import { cardsTypeOptions } from '../../utils';
 import { AromatherapySynergy } from '../../objects/AromatherapySynergy';
 import AromSynergyItem from './AromSynergyItem';
+import { getTreatmentImages } from '../../actions/treatments';
+
 
 
 const NoOptionsMessage = () => {
@@ -20,10 +23,13 @@ const NoOptionsMessage = () => {
 class EditHistoryTreatmentForm extends React.Component {
     constructor(props) {
         super(props);
+
+
+
         this.state = {
             date: props.treatment ? moment(props.treatment.date).format("YYYY-MM-DD HH:mm").toString() : moment(),
             reason: props.treatment ? props.treatment.reason : '',
-            price: props.treatment ? props.treatment.price : "",
+            price: props.treatment ? props.treatment.price : '0',
             error: '',
             selected: props.treatment && !jQuery.isEmptyObject(props.treatment.selected) ? treatsOptions.filter((option) => props.treatment.selected.includes(option.label)).map((option) => option.label) : [],
             treatmentProcess: props.treatment.treatmentProcess ? props.treatment.treatmentProcess : '',
@@ -37,13 +43,38 @@ class EditHistoryTreatmentForm extends React.Component {
             cardsPurpose: props.treatment.cardsPurpose ? props.treatment.cardsPurpose : '',
             cardsType: props.treatment.cardsType ? props.treatment.cardsType : '',
             aromatherapySynergyList: props.treatment.aromatherapySynergyList ? props.treatment.aromatherapySynergyList : [],
-
-
+            treatmentImages: [],
+            treatmentImagesNames: props.treatment.treatmentImagesNames ? props.treatment.treatmentImagesNames : [],
+            displayImagesUrls: []
         }
+
+    }
+
+    componentDidMount() {
+        this.state.treatmentImagesNames.forEach(name => {
+            this.props.getTreatmentImages(this.props.treatment.id, name).then((url) => {
+                let newState = this.state.displayImagesUrls;
+                newState.push(url);
+                this.setState({ displayImagesUrls: newState });
+            });
+        })
+
     }
 
     onSubmit = ((e) => {
         e.preventDefault();
+
+        if (!this.state.price) {
+            const errorMsg = 'אנא מלא/י מחיר'
+            this.setState(() => ({ error: errorMsg }));
+            window.scrollTo(0, 240);
+        }
+
+        let treatmentNewNames = this.state.treatmentImagesNames;
+        for (let i = 0; i < this.state.treatmentImages.length; i++) {
+            treatmentNewNames.push(this.state.treatmentImages[i].name);
+        }
+
         let obj = {
             date: new Date(this.state.date).getTime(),
             selected: this.state.selected,
@@ -59,9 +90,10 @@ class EditHistoryTreatmentForm extends React.Component {
             bachFlowersSynergyPurpose: this.state.bachFlowersSynergyPurpose,
             cardsPurpose: this.state.cardsPurpose,
             cardsType: this.state.cardsType,
-            aromatherapySynergyList: this.state.aromatherapySynergyList
+            aromatherapySynergyList: this.state.aromatherapySynergyList,
+            treatmentImagesNames: treatmentNewNames
         }
-        this.props.onSubmit(obj);
+        this.props.onSubmit(obj, this.state.treatmentImages);
     })
 
     onDateChange = ((date) => {
@@ -137,6 +169,11 @@ class EditHistoryTreatmentForm extends React.Component {
         }
     }
 
+    onFileUpload = (e) => {
+        const files = e.target.files;
+        this.setState({ treatmentImages: files });
+    }
+
     addNewSynergy = () => {
         if (this.state.aromatherapySynergyList.length < 5) {
             let aromatherapySynergy = new AromatherapySynergy(this.state.aromatherapySynergyList.length + 1);
@@ -179,7 +216,7 @@ class EditHistoryTreatmentForm extends React.Component {
     render() {
         const { clientName } = this.props.treatment;
         return (
-            <form className="form" onSubmit={this.onSubmit}>
+            <form className="form" onSubmit={this.onSubmit} encType="multipart/form-data">
                 {this.state.error && <p className="form__error">{this.state.error}</p>}
 
                 <p className="page-header__title" style={{ marginBottom: 50 }}>עבור <span style={{ fontWeight: 1000, fontSize: 20 }}>{clientName}</span></p>
@@ -246,6 +283,17 @@ class EditHistoryTreatmentForm extends React.Component {
                     onChange={this.onTreatmentProcessChange}
                 >
                 </textarea>
+
+                <input type="file" onChange={this.onFileUpload} multiple />
+
+                <div className="form__edit-images">
+                    {
+                        this.state.displayImagesUrls.map((url) => (
+                            < img src={url} alt="תמונה מהטיפול" width="25%" height="300" />
+                        ))
+                    }
+                </div>
+
 
                 <p className="page-header__title" style={{ marginBottom: 10 }}>פידבק מטופל</p>
                 <textarea className="textarea"
@@ -382,5 +430,10 @@ class EditHistoryTreatmentForm extends React.Component {
 }
 
 
+const mapDispatchToProps = (dispatch) => ({
+    getTreatmentImages: (treatmentId, imageName) => dispatch(getTreatmentImages(treatmentId, imageName))
+});
 
-export default EditHistoryTreatmentForm;
+
+export default connect(undefined, mapDispatchToProps)(EditHistoryTreatmentForm);
+

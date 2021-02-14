@@ -3,7 +3,7 @@ import moment from 'moment';
 const treatsFilterReducerDefaultState = {
     text: '',
     display: 'historyTreatments',
-    startDate: moment().subtract(1, 'M').startOf('month'),
+    startDate: moment().subtract(5, 'M').startOf('month'),
     endDate: moment().add(1, 'M').endOf('month'),
     selectedTreatment: '',
     sortBy: 'name up'
