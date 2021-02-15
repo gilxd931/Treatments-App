@@ -6,7 +6,6 @@ import geFilterById from '../../selectors/TreatmentById';
 import moment from 'moment';
 import { getTreatmentImages } from '../../actions/treatments';
 
-
 Modal.setAppElement(document.getElementById('app'));
 
 
@@ -68,7 +67,7 @@ class TreatmentModal extends React.Component {
             <Modal
                 isOpen={!!this.props.treatsFilters.selectedTreatment}
                 contentLabel="Selected Option"
-                onRequestClose={() => { props.setSelectedTreatment('') }}
+                onRequestClose={() => { this.props.setSelectedTreatment('') }}
                 closeTimeoutMS={200}
                 className="modal"
             >

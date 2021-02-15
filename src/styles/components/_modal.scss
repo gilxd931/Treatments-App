@@ -21,6 +21,9 @@
       background: $dark-gray;
       color: white;
       max-width: 80rem;
+      max-height: 100rem;
+      overflow-y: auto;
+      direction: ltr;
       outline: none;
       padding: $l-size;
       text-align: center;
