@@ -1,13 +1,11 @@
 import React from 'react';
 import moment from 'moment';
 import { connect } from 'react-redux';
-import { treatsOptions } from '../../utils';
 import jQuery from 'jquery';
 import { InputMoment } from 'react-input-moment';
 import DualListBox from 'react-dual-listbox';
 import { FaChevronLeft, FaChevronRight, FaChevronUp, FaChevronDown, FaPlusCircle } from 'react-icons/fa';
-import Select from 'react-select';
-import { cardsTypeOptions } from '../../utils';
+import { cardsTypeOptions, treatsOptions } from '../../utils';
 import { AromatherapySynergy } from '../../objects/AromatherapySynergy';
 import AromSynergyItem from './AromSynergyItem';
 import { getTreatmentImages } from '../../actions/treatments';
@@ -41,7 +39,7 @@ class EditHistoryTreatmentForm extends React.Component {
             bachFlowersHow: props.treatment.bachFlowersHow ? props.treatment.bachFlowersHow : '',
             bachFlowersSynergyPurpose: props.treatment.bachFlowersSynergyPurpose ? props.treatment.bachFlowersSynergyPurpose : '',
             cardsPurpose: props.treatment.cardsPurpose ? props.treatment.cardsPurpose : '',
-            cardsType: props.treatment.cardsType ? props.treatment.cardsType : '',
+            cardsType: props.treatment && !jQuery.isEmptyObject(props.treatment.cardsType) ? cardsTypeOptions.filter((cardType) => props.treatment.cardsType.includes(cardType.label)).map((cardType) => cardType.label) : [],
             aromatherapySynergyList: props.treatment.aromatherapySynergyList ? props.treatment.aromatherapySynergyList : [],
             treatmentImages: [],
             treatmentImagesNames: props.treatment.treatmentImagesNames ? props.treatment.treatmentImagesNames : [],
@@ -158,8 +156,8 @@ class EditHistoryTreatmentForm extends React.Component {
         this.setState({ bachFlowersSynergyPurpose });
     }
 
-    onCardsTypeChange = (type) => {
-        this.setState({ cardsType: type.label });
+    onCardsTypeChange = (cardsType) => {
+        this.setState({ cardsType });
     }
 
     onPriceChange = (e) => {
@@ -386,15 +384,26 @@ class EditHistoryTreatmentForm extends React.Component {
 
                             <div className="form__edit-history-data__item">
                                 <span>סוגי קלפים</span>
-                                <Select
-                                    className="form__edit-history-data__select"
+                                <DualListBox
                                     options={cardsTypeOptions}
-                                    placeholder={"סוג קלפים..."}
                                     onChange={this.onCardsTypeChange}
-                                    components={{ NoOptionsMessage }}
-                                    selec
-                                    value={{ label: this.state.cardsType, value: this.state.cardsType }}
-
+                                    selected={this.state.cardsType}
+                                    canFilter
+                                    filterPlaceholder="פילטר..."
+                                    icons={{
+                                        moveLeft: <FaChevronRight key={1} />,
+                                        moveAllLeft: [
+                                            <FaChevronRight key={2} />,
+                                            <FaChevronRight key={3} />
+                                        ],
+                                        moveRight: <FaChevronLeft key={1} />,
+                                        moveAllRight: [
+                                            <FaChevronLeft key={2} />,
+                                            <FaChevronLeft key={3} />,
+                                        ],
+                                        moveDown: <FaChevronDown />,
+                                        moveUp: <FaChevronUp />,
+                                    }}
                                 />
                             </div>
 

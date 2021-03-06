@@ -58,7 +58,7 @@ class TreatmentModal extends React.Component {
         const cardsDisplay = <div>
             <p className="modal__body"> {cardsType && <span>קלפים טיפוליים:</span>} </p>
             <div>
-                {cardsType && <p>סוג הקלפים- {cardsType}</p>}
+                {cardsType && <p>סוג הקלפים- {cardsType.join(', ')}</p>}
                 {cardsPurpose && <p>מטרת הטיפול- {cardsPurpose}</p>}
 
             </div>
