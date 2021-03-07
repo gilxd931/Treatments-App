@@ -38,7 +38,8 @@ class EditHistoryTreatmentForm extends React.Component {
             bachFlowersTime: props.treatment.bachFlowersTime ? props.treatment.bachFlowersTime : '',
             bachFlowersHow: props.treatment.bachFlowersHow ? props.treatment.bachFlowersHow : '',
             bachFlowersSynergyPurpose: props.treatment.bachFlowersSynergyPurpose ? props.treatment.bachFlowersSynergyPurpose : '',
-            cardsPurpose: props.treatment.cardsPurpose ? props.treatment.cardsPurpose : '',
+            treatmentPurpose: props.treatment.treatmentPurpose ? props.treatment.treatmentPurpose : '',
+            cardsUsed: props.treatment.cardsUsed ? props.treatment.cardsUsed : '',
             cardsType: props.treatment && !jQuery.isEmptyObject(props.treatment.cardsType) ? cardsTypeOptions.filter((cardType) => props.treatment.cardsType.includes(cardType.label)).map((cardType) => cardType.label) : [],
             aromatherapySynergyList: props.treatment.aromatherapySynergyList ? props.treatment.aromatherapySynergyList : [],
             treatmentImages: [],
@@ -86,10 +87,11 @@ class EditHistoryTreatmentForm extends React.Component {
             bachFlowersTime: this.state.bachFlowersTime,
             bachFlowersHow: this.state.bachFlowersHow,
             bachFlowersSynergyPurpose: this.state.bachFlowersSynergyPurpose,
-            cardsPurpose: this.state.cardsPurpose,
+            treatmentPurpose: this.state.treatmentPurpose,
             cardsType: this.state.cardsType,
             aromatherapySynergyList: this.state.aromatherapySynergyList,
-            treatmentImagesNames: treatmentNewNames
+            treatmentImagesNames: treatmentNewNames,
+            cardsUsed: this.state.cardsUsed
         }
         this.props.onSubmit(obj, this.state.treatmentImages);
     })
@@ -121,9 +123,14 @@ class EditHistoryTreatmentForm extends React.Component {
         this.setState({ treatmentProcess });
     }
 
-    oncardsPurposeChange = (e) => {
-        const cardsPurpose = e.target.value;
-        this.setState({ cardsPurpose });
+    onTreatmentPurposeChange = (e) => {
+        const treatmentPurpose = e.target.value;
+        this.setState({ treatmentPurpose });
+    }
+
+    onCardsUsedChange = (e) => {
+        const cardsUsed = e.target.value;
+        this.setState({ cardsUsed });
     }
 
     onChangeTreats = (selected) => {
@@ -272,6 +279,14 @@ class EditHistoryTreatmentForm extends React.Component {
                     onChange={this.onPriceChange}
                 />
 
+                <p className="page-header__title" style={{ marginBottom: 10 }}>מטרת הטיפול</p>
+                <textarea className="textarea"
+                    placeholder="מטרת הטיפול"
+                    value={this.state.treatmentPurpose}
+                    onChange={this.onTreatmentPurposeChange}
+                >
+                </textarea>
+
                 <div className="form__edit-history-treatment-seperator"></div>
 
                 <p className="page-header__title" style={{ marginBottom: 10 }}>מהלך הטיפול</p>
@@ -373,16 +388,6 @@ class EditHistoryTreatmentForm extends React.Component {
                         <div className="form__edit-history-data">
 
                             <div className="form__edit-history-data__item">
-                                <span>מטרת הטיפול</span>
-                                <textarea className="textarea"
-                                    placeholder="מטרת הטיפול"
-                                    value={this.state.cardsPurpose}
-                                    onChange={this.oncardsPurposeChange}
-                                >
-                                </textarea>
-                            </div>
-
-                            <div className="form__edit-history-data__item">
                                 <span>סוגי קלפים</span>
                                 <DualListBox
                                     options={cardsTypeOptions}
@@ -405,6 +410,15 @@ class EditHistoryTreatmentForm extends React.Component {
                                         moveUp: <FaChevronUp />,
                                     }}
                                 />
+                            </div>
+                            <div className="form__edit-history-data__item">
+                                <span>קלפים בשימוש</span>
+                                <textarea className="textarea"
+                                    placeholder="קלפים בשימוש"
+                                    value={this.state.cardsUsed}
+                                    onChange={this.onCardsUsedChange}
+                                >
+                                </textarea>
                             </div>
 
                         </div>

@@ -39,7 +39,7 @@ class TreatmentModal extends React.Component {
     render() {
         const treatmentData = geFilterById(this.props.treatmentsList, this.props.treatsFilters.selectedTreatment);
         const { clientName, reason, date, selected, selfFeedback, treatmentProcess, clientFeedback, bachFlowersExtracts, bachFlowersHow, bachFlowersPurpose,
-            bachFlowersSynergyPurpose, bachFlowersTime, cardsType, cardsPurpose } = treatmentData
+            bachFlowersSynergyPurpose, bachFlowersTime, cardsType, cardsUsed, treatmentPurpose } = treatmentData
 
         const formatedDate = moment(date).locale('he').format('DD לMMMM YYYY')
 
@@ -58,8 +58,10 @@ class TreatmentModal extends React.Component {
         const cardsDisplay = <div>
             <p className="modal__body"> {cardsType && <span>קלפים טיפוליים:</span>} </p>
             <div>
-                {cardsType && typeof cardsType === 'string' ? <p>סוג הקלפים- {cardsType}</p> : <p>סוג הקלפים- {cardsType.join(', ')}</p>}
-                {cardsPurpose && <p>מטרת הטיפול- {cardsPurpose}</p>}
+
+                {cardsType && Array.isArray(cardsType) ? <p>סוג הקלפים- {cardsType.join(', ')}</p> : undefined}
+                {cardsType && typeof cardsType === 'string' ? <p>סוג הקלפים- {cardsType}</p> : undefined}
+                {cardsUsed && <p>קלפים בשימוש- {cardsUsed}</p>}
 
             </div>
         </div>
@@ -78,7 +80,11 @@ class TreatmentModal extends React.Component {
 
                 <p className="modal__body">{reason && <span>סיבת הטיפול:</span>} {reason}</p>
 
+                <p className="modal__body">{treatmentPurpose && <span>מטרת הטיפול:</span>} {treatmentPurpose}</p>
+
                 <p className="modal__body">{treatmentProcess && <span>מהלך הטיפול:</span>} {treatmentProcess}</p>
+
+
 
                 <div className="form__edit-images">
                     {
