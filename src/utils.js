@@ -5,6 +5,7 @@ export const treatsOptions = [
     { value: 'ארומתרפיה', label: 'ארומתרפיה' },
     { value: 'פרחי בך', label: 'פרחי בך' },
     { value: 'קלפים טיפוליים', label: 'קלפים טיפוליים' },
+    { value: 'דמיון מודרך', label: 'דמיון מודרך' },
     { value: 'אחר', label: 'אחר' }
 ];
 
