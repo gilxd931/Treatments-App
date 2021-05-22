@@ -20,7 +20,6 @@ const getEvents = (allTreatments) => {
             }
         )
     ))
-    console.log(parsedAllTreatments)
     return parsedAllTreatments;
 };
 
