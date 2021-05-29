@@ -155,7 +155,6 @@ class TreatmentForm extends React.Component {
                 <input className="text-input ten"
                     type="text"
                     placeholder="מחיר"
-                    autoFocus
                     value={this.state.price}
                     onChange={this.onPriceChange}
                 />

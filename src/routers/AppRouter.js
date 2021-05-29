@@ -12,6 +12,8 @@ import AddTreatmentPage from '../components/treatments/AddTreatmentPage';
 import editFutureTreamtmentPage from '../components/treatments/editFutureTreamtmentPage';
 import EditHistoryTreatmentPage from '../components/treatments/EditHistoryTreatmentPage';
 import TreatmentsArraysPage from '../components/treatments/TreatmentsArraysPage';
+import AddTreatmentArrayPage from '../components/treatments/AddTreatmentArrayPage';
+
 import NotFoundPage from '../components/NotFoundPage';
 import PrivateRoute from './PrivateRoute';
 import PublicRoute from './PublicRoute';
@@ -33,6 +35,8 @@ const AppRouter = () => (
                 <PrivateRoute path="/editFutureTreatment/:id" component={editFutureTreamtmentPage} />
                 <PrivateRoute path="/editHistoryTreatment/:id" component={EditHistoryTreatmentPage} />
                 <PrivateRoute path="/treatmentsArrays" component={TreatmentsArraysPage} />
+                <PrivateRoute path="/createTreatmentArray" component={AddTreatmentArrayPage} />
+
                 <Route component={NotFoundPage} />
             </Switch>
         </div>
