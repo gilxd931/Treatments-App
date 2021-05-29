@@ -266,3 +266,31 @@ export const getTreatmentImages = (treatmentId, imageName) => {
     };
 }
 
+
+export const addTreatmentArray = (treatmentArray = {}) => ({
+    type: 'ADD_ARRAY',
+    treatmentArray
+})
+
+export const startAddTreatmentArray = (treatmentArrayData = {}) => {
+    return (dispatch, getState) => {
+        const uid = getState().auth.uid;
+        const {
+            arrayName = '',
+            selected = [],
+            info = ''
+        } = treatmentArrayData;
+
+        const sentSelected = { ...selected }
+
+        const treatmentArray = { arrayName, selected: sentSelected, info };
+        const dispatchTreatment = { arrayName, selected, info };
+
+        return db.ref(`${uid}/treatmentArray`).push(treatmentArray).then((ref) => {
+            dispatch(addTreatmentArray({
+                id: ref.key,
+                ...dispatchTreatment
+            }))
+        });
+    };
+};

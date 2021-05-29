@@ -56,19 +56,14 @@ export default class TreatmentArrayForm extends React.Component {
         }
         else {
             this.props.onSubmit({
-                fullName: this.state.fullName,
-                address: this.state.address,
-                note: this.state.note,
-                isActive: this.state.isActive,
-                birthday: new Date(this.state.birthday).getTime(),
+                arrayName: this.state.arrayName,
                 selected: this.state.selected,
-                sex: this.state.sex
+                info: this.state.info
             });
         }
     })
 
     render() {
-
         return (
             <form className="form" onSubmit={this.onSubmit}>
                 {this.state.error && <p className="form__error">{this.state.error}</p>}

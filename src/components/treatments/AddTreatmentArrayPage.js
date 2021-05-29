@@ -1,10 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import TreatmentArrayForm from './TreatmentArrayForm';
+import { startAddTreatmentArray } from '../../actions/treatments';
 
 export class AddTreatmentArrayPage extends React.Component {
     onSubmit = (treatArray) => {
-        // this.props.startAddTreatmentArray(treatArray);
+        this.props.startAddTreatmentArray(treatArray);
         this.props.history.push('/treatmentsArrays');
     };
     render() {
@@ -25,5 +26,8 @@ export class AddTreatmentArrayPage extends React.Component {
     }
 }
 
+const mapDispatchToProps = (dispatch) => ({
+    startAddTreatmentArray: (treatmentArray) => dispatch(startAddTreatmentArray(treatmentArray))
+});
 
-export default connect(undefined, undefined)(AddTreatmentArrayPage);
+export default connect(undefined, mapDispatchToProps)(AddTreatmentArrayPage);

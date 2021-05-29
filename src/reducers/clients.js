@@ -19,8 +19,6 @@ export default (state = clientsReduerDefaultState, action) => {
             })
         case 'SET_CLIENTS':
             return action.clients;
-        case 'REMOVE_CLIENT':
-            return state.filter(({ id }) => (id !== action.id))
         default:
             return state;
     }
